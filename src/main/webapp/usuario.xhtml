@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<title>JSF Spring Hibernate Integration</title>
+	<style type="text/css">
+.tg {
+	border-collapse: collapse;
+	border-spacing: 0;
+	border-color: #ccc;
+}
+
+.tg td {
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	padding: 10px 5px;
+	border-style: solid;
+	border-width: 1px;
+	overflow: hidden;
+	word-break: normal;
+	border-color: #ccc;
+	color: #333;
+	background-color: #fff;
+}
+
+.tg th {
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	font-weight: normal;
+	padding: 10px 5px;
+	border-style: solid;
+	border-width: 1px;
+	overflow: hidden;
+	word-break: normal;
+	border-color: #ccc;
+	color: #333;
+	background-color: #f0f0f0;
+}
+
+.tg .tg-4eph {
+	background-color: #f9f9f9
+}
+</style>
+</h:head>
+<h:body>
+	<h1>Adicionar usuario</h1>
+	<h:form>
+		<table>
+			<tr>
+				<td><label>Nome</label></td>
+				<td><h:inputText id="nome" value="#{usuario.nome}"></h:inputText>
+				</td>
+			</tr>
+			<tr>
+				<td><label>Country</label></td>
+				<td><h:inputText id="login" value="#{usuario.login}"></h:inputText>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"><h:commandButton
+						action="#{usuarioController.addPerson(usuario)}" value="Add Person"></h:commandButton>
+						<h:commandButton
+						action="#{usuarioController.teste()}" value="Teste"></h:commandButton>
+				</td>
+			</tr>
+
+		</table>
+
+	</h:form>
+
+	<br />
+	<h3>Persons List</h3>
+
+	<c:if test="${!empty usuarioController.listPersons()}">
+		<table class="tg">
+			<tr>
+				<th width="80">ID</th>
+				<th width="120">Nome</th>
+				<th width="120">Login</th>
+			</tr>
+			<ui:repeat value="${usuarioController.listPersons()}" var="usuario">
+				<tr>
+					<td>${usuario.id}</td>
+					<td>${usuario.nome}</td>
+					<td>${usuario.login}</td>
+				</tr>
+			</ui:repeat>
+		</table>
+	</c:if>
+
+</h:body>
+</html>
