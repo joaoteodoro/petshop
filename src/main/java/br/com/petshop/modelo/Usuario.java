@@ -8,29 +8,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
- 
-@Entity
-@Table(name="usuario")
-@ManagedBean(name="usuario")
-public class Usuario {
-	@Id
-    @Column(name="id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id;
-     
-    private Date dtCadastro;
-     
-    private String nome;
-    
-    private String login;
 
-	public int getId() {
-		return id;
+@Entity
+@Table(name = "usuario")
+@PrimaryKeyJoinColumn(name = "id")
+@ManagedBean(name = "usuario")
+public class Usuario extends Pessoa {
+
+	@Id
+	@Column(name = "idUsuario")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idUsuario;
+
+	private Date dtCadastro;
+	private String login;
+	private String senha;
+
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public Date getDtCadastro() {
@@ -41,14 +42,6 @@ public class Usuario {
 		this.dtCadastro = dtCadastro;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public String getLogin() {
 		return login;
 	}
@@ -56,5 +49,5 @@ public class Usuario {
 	public void setLogin(String usuario) {
 		this.login = usuario;
 	}
- 
+
 }
