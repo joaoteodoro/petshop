@@ -7,17 +7,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
+@PrimaryKeyJoinColumn(name = "idProduto")
 @Table(name = "produtoCompra")
 @ManagedBean(name = "produtoCompra")
-public class ProdutoCompra {
+public class ProdutoCompra extends Produto{
 
-	@Id
-	@Column(name = "idProdutoCompra")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idProdutoCompra;
+//	@Id
+//	@Column(name = "idProdutoCompra")
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private int idProdutoCompra;
 
 	private int quantidade;
 
@@ -27,13 +29,13 @@ public class ProdutoCompra {
 	@ManyToOne
 	private Compra compra;
 
-	public int getIdProdutoCompra() {
+	/*public int getIdProdutoCompra() {
 		return idProdutoCompra;
 	}
 
 	public void setIdProdutoCompra(int idProdutoCompra) {
 		this.idProdutoCompra = idProdutoCompra;
-	}
+	}*/
 
 	public int getQuantidade() {
 		return quantidade;

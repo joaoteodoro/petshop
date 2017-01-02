@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>PETSHOP - Pagina inicial</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+	
+	.bloco-lembrete{
+		height: 200px;
+		background-color: #d8ecd8;
+		margin: 10px;
+		overflow:auto;
+	}
+	
+	.barra-menu{
+		background-color: #3c763d;
+	}
+	
+	.navbar-inverse .navbar-nav>li>a {
+		color: white;
+	}
+	
+	.navbar-inverse .navbar-brand{
+		color: white;
+	}
+	
+	.navbar-inverse .navbar-nav>.active>a{
+		background-color: rgb(124, 152, 124);
+	}
+	
+	.rodape{
+		background-color: #3c763d;
+	}
+	
+	.linha-principais-atividades{
+		margin-bottom: 20px;
+	}
+	
+	.bloco-impar{
+		background-color: rgba(255, 255, 255, 0.72);
+	}
+	
+	.bloco-par{
+		background-color: rgba(255, 255, 255, 0.38);
+	}
+	
+	.div-principal-fundo{
+		height: 540px;
+	}
+	
+	.linha-aniversariantes{
+		margin-bottom: 2px;
+	}
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse barra-menu">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Principal</a></li>
+        <li><a href="#">Produtos</a></li>
+        <li><a href="#">Fornecedores</a></li>
+        <li><a href="#">Clientes</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid div-principal-fundo">    
+  <div class="row">
+	<div class='bloco-lembrete col-md-3'>
+		<p class='text-center' style='background-color: green; color: white'>Principais atividades</p>
+		<div class="row linha-principais-atividades">
+			<div class="col-md-6">
+				<button type="button" class="btn btn-default">Relizar Venda</button>
+			</div>
+			<div class="col-md-6">
+				<button type="button" class="btn btn-default">Cadastrar Compra</button>
+			</div>
+		</div>
+		<div class="row linha-principais-atividades">
+			<div class="col-md-6">
+				<button type="button" class="btn btn-default">Registrar Pagamento/Saída</button>
+			</div>
+		</div>
+	</div>
+	
+	<div id="aniversariantes" class='bloco-lembrete col-md-3'>
+		<p class='text-center' style='background-color: green; color: white'>Aniversariantes</p>
+		<div class="row linha-aniversariantes bloco-impar">
+			<a href="#">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-6">
+							** nome_do_animal<br/>
+							** nome_do_dono
+						</div>
+						<div class="col-md-6">
+							Data de Aniv.<br/>
+							HOJE	
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="row linha-aniversariantes bloco-par">
+			<a href="#">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-6">
+							** nome_do_animal<br/>
+							** nome_do_dono
+						</div>
+						<div class="col-md-6">
+							Data de Aniv.<br/>
+							AMANHÃ	
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="row linha-aniversariantes bloco-impar">
+			<a href="#">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-6">
+							** nome_do_animal<br/>
+							** nome_do_dono
+						</div>
+						<div class="col-md-6">
+							Data de Aniv.<br/>
+							dd/mm/aa	
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="row linha-aniversariantes bloco-par">
+			<a href="#">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-6">
+							** nome_do_animal<br/>
+							** nome_do_dono
+						</div>
+						<div class="col-md-6">
+							Data de Aniv.<br/>
+							dd/mm/aa	
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="row linha-aniversariantes bloco-impar">
+			<a href="#">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-6">
+							** nome_do_animal<br/>
+							** nome_do_dono
+						</div>
+						<div class="col-md-6">
+							Data de Aniv.<br/>
+							dd/mm/aa	
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="row linha-aniversariantes bloco-par">
+			<a href="#">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-6">
+							** nome_do_animal<br/>
+							** nome_do_dono
+						</div>
+						<div class="col-md-6">
+							Data de Aniv.<br/>
+							dd/mm/aa	
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+	</div>
+	
+	<div class='bloco-lembrete col-md-5'>
+		<p class='text-center' style='background-color: green; color: white'>Procedimentos Agendados</p>
+		<div class="row linha-procedimentos bloco-impar">
+			<a href="#">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-6">
+							** nome_procedimento<br>
+							** nome_animal
+						</div>
+						<div class="col-md-6">
+							Data/Horário<br>
+							dd/mm/aa-hh:mm	
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		
+	</div>
+  </div>
+   <div class="row">
+	   <div class='col-md-5' style='margin: 10px;'>
+	   </div>
+   </div>
+</div>
+
+<footer class="container-fluid text-center rodape">
+  <p>Rodapé</p>
+</footer>
+
+</body>
+</html>

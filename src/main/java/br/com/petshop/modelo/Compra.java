@@ -36,6 +36,7 @@ public class Compra {
 	
 	private int nrParcelas;
 	
+	@OneToMany(mappedBy = "compra", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Parcela> parcelas;
 	
 	private Date dtVencimento;

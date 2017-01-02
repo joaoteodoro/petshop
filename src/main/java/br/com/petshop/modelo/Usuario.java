@@ -13,14 +13,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "usuario")
-@PrimaryKeyJoinColumn(name = "id")
+@PrimaryKeyJoinColumn(name = "idPessoa")
 @ManagedBean(name = "usuario")
 public class Usuario extends Pessoa {
 
-	@Id
-	@Column(name = "idUsuario")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idUsuario;
+//	@Id
+//	@Column(name = "idUsuario")
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private int idUsuario;
 
 	private Date dtCadastro;
 	private String login;

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +25,8 @@ public class Endereco {
 	private int numero;
 	private String complemento;
 	private int cep;
+	
+	@ManyToOne
 	private Estado estado;
 	
 	public int getId() {

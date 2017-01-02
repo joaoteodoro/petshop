@@ -9,17 +9,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
+@PrimaryKeyJoinColumn(name = "idProduto")
 @Table(name = "produtoVenda")
 @ManagedBean(name = "produtoVenda")
-public class ProdutoVenda {
+public class ProdutoVenda extends Produto{
 
-	@Id
-	@Column(name = "idProdutoVenda")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idProdutoVenda;
+//	@Id
+//	@Column(name = "idProdutoVenda")
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private int idProdutoVenda;
 
 	private int quantidade;
 

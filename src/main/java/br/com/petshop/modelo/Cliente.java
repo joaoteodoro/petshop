@@ -9,25 +9,33 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "cliente")
-@PrimaryKeyJoinColumn(name = "id")
+@PrimaryKeyJoinColumn(name = "idPessoa")
 @ManagedBean(name = "cliente")
 public class Cliente extends Pessoa {
 
-	@Id
-	@Column(name = "idCliente")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idCliente;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+//	@Id
+//	@Column(name = "idCliente")
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private int idCliente;
 	
 	@OneToMany(mappedBy = "dono", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Animal> animais;
 
+	@ManyToOne
 	private Endereco endereco;
+	
 	private Long cpf;
 	private String dataNascimento;
 
@@ -47,13 +55,13 @@ public class Cliente extends Pessoa {
 		this.cpf = cpf;
 	}
 
-	public int getIdCliente() {
+	/*public int getIdCliente() {
 		return idCliente;
 	}
 
 	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
-	}
+	}*/
 
 	public String getDataNascimento() {
 		return dataNascimento;

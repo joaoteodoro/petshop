@@ -1,5 +1,6 @@
 package br.com.petshop.modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,13 +11,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "produto")
 @ManagedBean(name = "produto")
-public class Produto {
+public class Produto implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 
 	@Id
 	@Column(name = "idProduto")
@@ -29,8 +39,9 @@ public class Produto {
 	private Date dtCompra;
 	private TipoUnidade tipoUnidadeCompra; // peca, pacote, quilograma,
 	private TipoUnidade tipoUnidadeVenda;
-	private float quantidadeCompra;
-	private float quantidadeVenda; // 1 pct, 1 peca, 1 kg
+	//private float quantidadeCompra;
+	//private float quantidadeVenda; // 1 pct, 1 peca, 1 kg
+	
 	private Fornecedor fornecedor;
 	private float valorDeCompra;
 	private float valoDeVenda;
@@ -74,7 +85,7 @@ public class Produto {
 		this.descricao = descricao;
 	}
 
-	public float getQuantidadeCompra() {
+	/*public float getQuantidadeCompra() {
 		return quantidadeCompra;
 	}
 
@@ -88,7 +99,7 @@ public class Produto {
 
 	public void setQuantidadeVenda(float quantidadeVenda) {
 		this.quantidadeVenda = quantidadeVenda;
-	}
+	}*/
 
 	public Fornecedor getFornecedor() {
 		return fornecedor;
