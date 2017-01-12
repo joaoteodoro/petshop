@@ -24,20 +24,18 @@ import br.com.petshop.modelo.Usuario;
 public class FornecedorControllerImpl implements FornecedorController {
 
 	@Autowired
-	FornecedorDAO fornecedorDAO;
+	FornecedorDAO fornecedorDao;
 
-	public void setUsuarioDao(FornecedorDAO fornecedorDAO) {
-		this.fornecedorDAO = fornecedorDAO;
+	public void setFornecedorDao(FornecedorDAO fornecedorDao) {
+		this.fornecedorDao = fornecedorDao;
 	}
 
-	@Override
 	public void adicionarFornecedor(Fornecedor f) {
-		this.fornecedorDAO.adicionarFornecedor(f);
+		this.fornecedorDao.adicionarFornecedor(f);
 	}
 
-	@Override
 	public List<Fornecedor> listarFornecedores() {
-		return this.fornecedorDAO.listarFornecedores();
+		return this.fornecedorDao.listarFornecedores();
 	}
 
 }
