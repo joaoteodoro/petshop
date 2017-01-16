@@ -8,5 +8,7 @@ public interface FornecedorController {
  
     public void adicionarFornecedor(Fornecedor f);
     public List<Fornecedor> listarFornecedores();
+    public String editaFornecedor(Fornecedor fornecedor);
+    public String gravar();
      
 }

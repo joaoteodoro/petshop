@@ -17,8 +17,8 @@
 				<p:column>
 					<p:outputLabel for="nome" value="Nome:" />
 				</p:column>
-				<p:column>
-					<p:inputText id="nome" value="#{fornecedor.nome}" />
+				<p:column  colspan="2">
+					<p:inputText id="nome" value="#{fornecedorController.fornecedor.nome}" size="50"/>
 				</p:column>
 				<p:column>
 				</p:column>
@@ -28,12 +28,34 @@
 					<p:outputLabel for="cnpj" value="CNPJ:" />
 				</p:column>
 				<p:column>
-					<p:inputText id="cnpj" value="#{fornecedor.cnpj}" />
+					<p:inputMask id="cnpj" value="#{fornecedorController.fornecedor.cnpj}" mask="99.999.999/9999-99"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel value="Telefones" />
 				</p:column>
 				<p:column>
+					<p:inputMask id="telefone1" value="#{fornecedorController.fornecedor.telefones[0].numero}" mask="(99)9999-9999"/>
+				</p:column>
+				<p:column>
+					<p:outputLabel for="whatsapp2" value="É Whatsapp?" />
+					<p:selectBooleanCheckbox id="whatsapp1" value="#{fornecedorController.fornecedor.telefones[0].whatsapp}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+				</p:column>
+				<p:column>
+					<p:inputMask id="telefone2" value="#{fornecedorController.fornecedor.telefones[1].numero}" mask="(99)9999-9999"/>
+				</p:column>
+				<p:column>
+					<p:outputLabel for="whatsapp2" value="É Whatsapp?" />
+					<p:selectBooleanCheckbox id="whatsapp2" value="#{fornecedorController.fornecedor.telefones[1].whatsapp}" />
 				</p:column>
 			</p:row>
 		</p:panelGrid>
+		<h:commandButton action="#{fornecedorController.gravar}" value="Gravar" />
 	</h:form>
 </h:body>
 </html>

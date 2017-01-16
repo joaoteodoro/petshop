@@ -9,11 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.petshop.modelo.Fornecedor;
 
 @Repository
 @Service
+@Transactional
 public class FornecedorDAOImpl implements FornecedorDAO{
 	
 	@PersistenceContext
@@ -32,8 +34,17 @@ public class FornecedorDAOImpl implements FornecedorDAO{
 
 	@Override
 	public List<Fornecedor> listarFornecedores() {
-		List<Fornecedor> fornecedores =  entityManagerFactory.createQuery("from Usuario").getResultList();
+		List<Fornecedor> fornecedores =  entityManagerFactory.createQuery("from Fornecedor").getResultList();
         return fornecedores;
+	}
+	
+	@Override
+	public void gravar(Fornecedor f) {
+		if(f.getIdPessoa() != 0){
+			entityManagerFactory.merge(f);
+		}else{
+			entityManagerFactory.persist(f);
+		}
 	}
  
 }

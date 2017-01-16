@@ -8,4 +8,5 @@ public interface FornecedorDAO {
  
 	public void adicionarFornecedor(Fornecedor f);
     public List<Fornecedor> listarFornecedores();
+    public void gravar(Fornecedor f);
 }

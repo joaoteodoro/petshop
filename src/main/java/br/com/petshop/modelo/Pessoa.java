@@ -62,4 +62,12 @@ public class Pessoa implements Serializable{
 		this.dtCadastro = dtCadastro;
 	}
 
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
+	}
+
 }
