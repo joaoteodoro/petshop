@@ -5,8 +5,7 @@ import java.util.List;
 import br.com.petshop.modelo.Fornecedor;
  
 public interface FornecedorDAO {
- 
-	public void adicionarFornecedor(Fornecedor f);
-    public List<Fornecedor> listarFornecedores();
-    public void gravar(Fornecedor f);
+    public List<Fornecedor> listaFornecedores();
+    public void altera(Fornecedor f);
+    public void inclui(Fornecedor f);
 }

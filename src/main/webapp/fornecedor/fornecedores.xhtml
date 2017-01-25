@@ -13,7 +13,7 @@
 </h:head>
 <h:body>
 	<h:form>	
-		<p:dataTable var="fornecedor" value="#{fornecedorController.listarFornecedores()}" rows="10"
+		<p:dataTable var="fornecedor" value="#{fornecedorController.listaFornecedores()}" rows="10"
 			paginator="true"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15">
@@ -29,29 +29,11 @@
 				<h:outputText value="#{fornecedor.cnpj}" />
 			</p:column>
 			<p:column>
-				<h:commandButton action="#{fornecedorController.editaFornecedor(fornecedor)}" value="Editar Fornecedor"/>				
+				<h:commandButton id="editar" action="#{fornecedorController.editaFornecedor(fornecedor)}" value="Editar Fornecedor"/>				
 			</p:column>
 		</p:dataTable>
-	</h:form>
-	
-	<c:if test="${!empty usuarioController.listPersons()}">
-		<table class="tg">
-			<tr>
-				<th width="80">ID</th>
-				<th width="120">Nome</th>
-				<th width="120">Login</th>
-			</tr>
-			<ui:repeat value="${fornecedorController.listarFornecedores()}" var="fornecedor">
-				<tr>
-					<td>${fornecedor.idPessoa}</td>
-					<td>${fornecedor.nome}</td>
-					<td>${fornecedor.cnpj}</td>
-				</tr>
-			</ui:repeat>
-		</table>
-	</c:if>
-
-
-
+		<br/>
+		<p:commandButton id="novo" value="Adicionar Fornecedor" action="#{fornecedorController.novo()}" ajax="false" />
+	</h:form>	
 </h:body>
 </html>

@@ -24,10 +24,14 @@ public class Endereco {
 	private String cidade;
 	private int numero;
 	private String complemento;
-	private int cep;
+	private String cep;
 	
 	@ManyToOne
 	private Estado estado;
+	
+	public Endereco() {
+		this.estado = new Estado();
+	}
 	
 	public int getId() {
 		return id;
@@ -65,16 +69,16 @@ public class Endereco {
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
-	public int getCep() {
-		return cep;
-	}
-	public void setCep(int cep) {
-		this.cep = cep;
-	}
 	public Estado getEstado() {
 		return estado;
 	}
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+	}
+	public String getCep() {
+		return cep;
+	}
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 }

@@ -19,16 +19,17 @@ public class Telefone {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	private Long numero;
+	private String numero;
 	private boolean whatsapp;
 	
 	@ManyToOne
 	private Pessoa pessoa;
 	
-	public Long getNumero() {
+	
+	public String getNumero() {
 		return numero;
 	}
-	public void setNumero(Long numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 	public boolean isWhatsapp() {

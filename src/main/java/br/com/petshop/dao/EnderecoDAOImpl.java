@@ -9,12 +9,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.petshop.modelo.Fornecedor;
+import br.com.petshop.modelo.Endereco;
 
 @Repository
 @Service
 @Transactional
-public class FornecedorDAOImpl implements FornecedorDAO{
+public class EnderecoDAOImpl implements EnderecoDAO{
 	
 	@PersistenceContext
 	EntityManager entityManagerFactory;
@@ -26,18 +26,18 @@ public class FornecedorDAOImpl implements FornecedorDAO{
 	}
 
 	@Override
-	public List<Fornecedor> listaFornecedores() {
+	public List<Endereco> listaEnderecos() {
 		@SuppressWarnings("unchecked")
-		List<Fornecedor> fornecedores =  entityManagerFactory.createQuery("from Fornecedor").getResultList();
-        return fornecedores;
+		List<Endereco> enderecos =  entityManagerFactory.createQuery("from Endereco").getResultList();
+        return enderecos;
 	}
 	
-	public void altera(Fornecedor f){
-		entityManagerFactory.merge(f);
+	public void altera(Endereco e){
+		entityManagerFactory.merge(e);
 	}
 	
-	public void inclui(Fornecedor f) {
-		entityManagerFactory.persist(f);
+	public void inclui(Endereco e) {
+		entityManagerFactory.persist(e);
 	}
  
 }

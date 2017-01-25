@@ -1,5 +1,7 @@
 package br.com.petshop.modelo;
 
+import java.util.Arrays;
+
 import javax.faces.bean.ManagedBean;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,16 +22,21 @@ public class Fornecedor extends Pessoa {
 //	@Column(name = "idFornecedor")
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)
 //	private int idFornecedor;
+	
+	public Fornecedor() {
+		this.endereco = new Endereco();
+		this.setTelefones(Arrays.asList(new Telefone(), new Telefone()));
+	}
 
 	@ManyToOne
 	private Endereco endereco;
-	private Long cnpj;
+	private String cnpj;
 
-	public Long getCnpj() {
+	public String getCnpj() {
 		return cnpj;
 	}
 
-	public void setCnpj(Long cnpj) {
+	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
 

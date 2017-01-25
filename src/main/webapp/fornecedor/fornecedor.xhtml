@@ -6,11 +6,24 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
+	<link rel="stylesheet" type="text/css" href="/petshop/resources/css/jquery-ui.min.css" />
+	<link rel="stylesheet" type="text/css" href="/petshop/resources/css/jquery-ui.theme.min.css" />
+	<link rel="stylesheet" type="text/css" href="/petshop/resources/css/bootstrap.min.css" />
+	<script src="/petshop/resources/javascript/jquery.min.js" type="text/javascript"></script>
+	<script src="/petshop/resources/javascript/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="/petshop/resources/javascript/bootstrap.min.js" type="text/javascript"></script>
+	<script src="/petshop/resources/javascript/jquery.mask.min.js" type="text/javascript"></script>
 	<title>Fornecedores</title>
 </h:head>
 <h:body>
+	<h:form>
+	    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+	 
+	</h:form>
+	<p:separator />
 	<h:form>
 		<p:panelGrid class="ui-noborder">
 			<p:row>
@@ -18,7 +31,7 @@
 					<p:outputLabel for="nome" value="Nome:" />
 				</p:column>
 				<p:column  colspan="2">
-					<p:inputText id="nome" value="#{fornecedorController.fornecedor.nome}" size="50"/>
+					<p:inputText id="nome" value="#{fornecedorController.fornecedor.nome}" size="50" required="true" requiredMessage="Informe o campo nome!"/>
 				</p:column>
 				<p:column>
 				</p:column>
@@ -28,7 +41,8 @@
 					<p:outputLabel for="cnpj" value="CNPJ:" />
 				</p:column>
 				<p:column>
-					<p:inputMask id="cnpj" value="#{fornecedorController.fornecedor.cnpj}" mask="99.999.999/9999-99"/>
+<!-- 					<p:inputText id="cnpj" value="#{fornecedorController.fornecedor.cnpj}"/> 99.999.999/9999-99-->
+					<p:inputMask id="cnpj" value="#{fornecedorController.fornecedor.cnpj}" mask="99.999.999/9999-99" required="true" requiredMessage="Informe o campo CNPJ"/>
 				</p:column>
 			</p:row>
 			<p:row>
@@ -36,7 +50,8 @@
 					<p:outputLabel value="Telefones" />
 				</p:column>
 				<p:column>
-					<p:inputMask id="telefone1" value="#{fornecedorController.fornecedor.telefones[0].numero}" mask="(99)9999-9999"/>
+					<p:inputMask id="telefone1" value="#{fornecedorController.fornecedor.telefones[0].numero}" mask="(99) 9999-9999? x9" required="true" 
+						requiredMessage="Informe o campo Telefone"/>
 				</p:column>
 				<p:column>
 					<p:outputLabel for="whatsapp2" value="É Whatsapp?" />
@@ -54,8 +69,63 @@
 					<p:selectBooleanCheckbox id="whatsapp2" value="#{fornecedorController.fornecedor.telefones[1].whatsapp}" />
 				</p:column>
 			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="logradouro" value="Logradouro" />
+				</p:column>
+				<p:column>
+					<p:inputText id="logradouro" value="#{fornecedorController.fornecedor.endereco.logradouro}" required="true" requiredMessage="Informe o campo Logradouro"/>
+				</p:column>
+				<p:column>
+					<p:outputLabel for="numero" value="Número" />
+				</p:column>
+				<p:column>
+					<p:inputText id="numero" value="#{fornecedorController.fornecedor.endereco.numero}" size="5" required="true" requiredMessage="Informe o campo Número!"/>
+				</p:column>
+				<p:column>
+					<p:outputLabel for="complemento" value="Complemento" />
+				</p:column>
+				<p:column>
+					<p:inputText id="complemento" value="#{fornecedorController.fornecedor.endereco.complemento}"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel for="bairro" value="Bairro" />
+				</p:column>
+				<p:column>
+					<p:inputText id="bairro" value="#{fornecedorController.fornecedor.endereco.bairro}" required="true" requiredMessage="Informe o campo Bairro!"/>
+				</p:column>
+				<p:column>
+					<p:outputLabel for="cep" value="CEP" />
+				</p:column>
+				<p:column>
+					<p:inputMask id="cep" value="#{fornecedorController.fornecedor.endereco.cep}" mask="99.999-999"/>
+				</p:column>
+				
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<p:outputLabel for="cidade" value="Cidade" />
+				</p:column>
+				<p:column>
+					<p:inputText id="cidade" value="#{fornecedorController.fornecedor.endereco.cidade}" required="true" requiredMessage="Informe o campo Cidade!"/>
+				</p:column>
+				<p:column>
+					<p:outputLabel for="estado" value="Estado" />
+				</p:column>
+				
+				<p:column>
+			        <p:selectOneMenu id="estado" style="width:300px;" value="#{fornecedorController.fornecedor.endereco.estado.id}" required="true" requiredMessage="Informe o campo Estado!">  
+			            <f:selectItem itemLabel="Selecione..." itemValue=""/>  
+			            <f:selectItems value="#{fornecedorController.selectItensEstados()}"/>  
+			        </p:selectOneMenu> 
+				</p:column>
+			</p:row>
+			
 		</p:panelGrid>
-		<h:commandButton action="#{fornecedorController.gravar}" value="Gravar" />
+		<p:commandButton value="Gravar" id="nonAjax" action="#{fornecedorController.grava}" ajax="false" />
 	</h:form>
 </h:body>
 </html>

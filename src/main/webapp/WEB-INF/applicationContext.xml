@@ -25,16 +25,24 @@
 		<property name="password" value="" />
 	</bean>
 	
+	
+	
+	<bean id="estadoDao" 
+		class="br.com.petshop.dao.EstadoDAOImpl"/>
+	<bean id="estadoController"
+		class="br.com.petshop.controle.EstadoControllerImpl">
+		<property name="estadoDao" ref="estadoDao"></property>
+	</bean>
+	<bean id="estadoConverter"
+		class="br.com.petshop.converter.EstadoConverter">
+		<property name="estadoDao" ref="estadoDao"></property>
+	</bean>
+	
 	<bean id="fornecedorDao" 
 		class="br.com.petshop.dao.FornecedorDAOImpl"/>
-		
-<!-- 	<bean id="fornecedor" -->
-<!-- 		class="br.com.petshop.modelo.Fornecedor"/> -->
-		
 	<bean id="fornecedorController"
 		class="br.com.petshop.controle.FornecedorControllerImpl">
 		<property name="fornecedorDao" ref="fornecedorDao"></property>
-<!-- 		<property name="fornecedor" ref="fornecedor"></property> -->
 	</bean>
 	
 	<bean id="usuarioDao"

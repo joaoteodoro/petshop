@@ -2,13 +2,15 @@ package br.com.petshop.controle;
 
 import java.util.List;
 
+import javax.faces.model.SelectItem;
+
 import br.com.petshop.modelo.Fornecedor;
  
 public interface FornecedorController {
- 
-    public void adicionarFornecedor(Fornecedor f);
-    public List<Fornecedor> listarFornecedores();
+    public List<Fornecedor> listaFornecedores();
     public String editaFornecedor(Fornecedor fornecedor);
-    public String gravar();
+    public String grava();
+    public List<SelectItem> selectItensEstados();
+    public String novo();
      
 }

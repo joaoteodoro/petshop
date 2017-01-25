@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +36,7 @@ public class Pessoa implements Serializable{
 	private String nome;
 	private Date dtCadastro;
 
-	@OneToMany(mappedBy = "pessoa", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@OneToMany(mappedBy = "pessoa", cascade = { CascadeType.ALL/*, CascadeType.REMOVE */}, fetch=FetchType.EAGER, orphanRemoval=true)
 	private List<Telefone> telefones;
 
 	public int getIdPessoa() {
