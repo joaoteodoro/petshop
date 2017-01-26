@@ -29,7 +29,7 @@ public class EstadoDAOImpl implements EstadoDAO{
 	@Override
 	public List<Estado> listaEstados() {
 		@SuppressWarnings("unchecked")
-		List<Estado> estados =  entityManagerFactory.createQuery("from Estado").getResultList();
+		List<Estado> estados =  entityManagerFactory.createQuery("from Estado order by nome").getResultList();
         return estados;
 	}
 	

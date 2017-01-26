@@ -13,10 +13,8 @@
 </h:head>
 <h:body>
 	<h:form>	
-		<p:dataTable var="fornecedor" value="#{fornecedorController.listaFornecedores()}" rows="10"
-			paginator="true"
-			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15">
+		<p:dataTable var="fornecedor" value="#{fornecedorController.listaFornecedores()}"
+			reflow="true" rows="15" paginator="true">
 			<p:column headerText="Id">
 				<h:outputText value="#{fornecedor.idPessoa}" />
 			</p:column>
