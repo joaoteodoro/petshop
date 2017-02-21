@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.petshop.modelo.Fornecedor;
+import br.com.petshop.modelo.Telefone;
 
 @Repository
 @Service
@@ -39,5 +40,12 @@ public class FornecedorDAOImpl implements FornecedorDAO{
 	public void inclui(Fornecedor f) {
 		entityManagerFactory.persist(f);
 	}
+	
+	public Fornecedor buscaPorId(int idPessoa){
+		return entityManagerFactory.find(Fornecedor.class, idPessoa);
+	}
  
+	public void remove(Fornecedor f){
+		entityManagerFactory.remove(entityManagerFactory.getReference(Fornecedor.class, f.getIdPessoa()));
+	}
 }

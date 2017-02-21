@@ -8,4 +8,6 @@ public interface FornecedorDAO {
     public List<Fornecedor> listaFornecedores();
     public void altera(Fornecedor f);
     public void inclui(Fornecedor f);
+    public Fornecedor buscaPorId(int idPessoa);
+    public void remove(Fornecedor f);
 }

@@ -1,5 +1,7 @@
 package br.com.petshop.modelo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -31,13 +33,20 @@ public class Cliente extends Pessoa {
 //	private int idCliente;
 	
 	@OneToMany(mappedBy = "dono", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-	private List<Animal> animais;
+	private List<Animal> animais = new ArrayList<>();
 
 	@ManyToOne
 	private Endereco endereco;
 	
-	private Long cpf;
+	private String cpf;
 	private String dataNascimento;
+	
+	public Cliente(){
+		this.endereco = new Endereco();
+		this.setTelefones(Arrays.asList(new Telefone(), new Telefone()));
+		this.animais.add(new Animal());
+		this.animais.add(new Animal());
+	}
 
 	public Endereco getEndereco() {
 		return endereco;
@@ -47,14 +56,6 @@ public class Cliente extends Pessoa {
 		this.endereco = endereco;
 	}
 
-	public Long getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(Long cpf) {
-		this.cpf = cpf;
-	}
-
 	/*public int getIdCliente() {
 		return idCliente;
 	}
@@ -62,6 +63,14 @@ public class Cliente extends Pessoa {
 	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
 	}*/
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 
 	public String getDataNascimento() {
 		return dataNascimento;

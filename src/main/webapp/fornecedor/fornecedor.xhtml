@@ -9,128 +9,114 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-<!-- 	<link rel="stylesheet" type="text/css" href="/petshop/resources/css/jquery-ui.min.css" /> -->
-<!-- 	<link rel="stylesheet" type="text/css" href="/petshop/resources/css/jquery-ui.theme.min.css" /> -->
-<!-- 	<link rel="stylesheet" type="text/css" href="/petshop/resources/css/bootstrap.min.css" /> -->
-	<link rel="stylesheet" type="text/css" href="/petshop/resources/css/estilo.css" />
-<!-- 	<script src="/petshop/resources/javascript/jquery.min.js" type="text/javascript"></script> -->
-<!-- 	<script src="/petshop/resources/javascript/jquery-ui.min.js" type="text/javascript"></script> -->
-<!-- 	<script src="/petshop/resources/javascript/bootstrap.min.js" type="text/javascript"></script> -->
-<!-- 	<script src="/petshop/resources/javascript/jquery.mask.min.js" type="text/javascript"></script> -->
-	<title>Fornecedores</title>
+	<title>Fornecedor</title>
+	<f:facet name="first">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    </f:facet>
 </h:head>
 <h:body>
-	<h:form>
-	    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-	 
-	</h:form>
-	<p:separator />
-	<h:form>
-		<p:panelGrid class="ui-noborder">
-			<p:row>
-				<p:column>
-					<p:outputLabel for="nome" value="Nome:" styleClass="label-padrao" />
-				</p:column>
-				<p:column  colspan="2">
-					<p:inputText id="nome" value="#{fornecedorController.fornecedor.nome}" size="50" required="true" requiredMessage="Informe o campo nome!"/>
-				</p:column>
-				<p:column>
-				</p:column>
-			</p:row>
-			<p:row>
-				<p:column>
-					<p:outputLabel for="cnpj" value="CNPJ:" styleClass="label-padrao"/>
-				</p:column>
-				<p:column>
-<!-- 					<p:inputText id="cnpj" value="#{fornecedorController.fornecedor.cnpj}"/> 99.999.999/9999-99-->
+	<ui:include src="/includes.xhtml" />
+	<div class="container-fluid div-principal-fundo">
+		<h3 class="text-center"><b>Cadastro de Fornecedor</b></h3>
+		<h:form>
+		    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		</h:form>
+		<h:form>
+			<h:commandButton rendered="#{fornecedorController.fornecedor.idPessoa != 0}" id="excluir" action="#{fornecedorController.removeFornecedor(fornecedorController.fornecedor)}" value="Excluir Fornecedor" ajax="false"/>
+		</h:form>
+		<p:separator />
+		
+		<h:form>
+			<div class="row">
+				<div class="col-md-6">
+					<p:outputLabel for="nome" value="Nome:"  />
+					<p:inputText styleClass="form-control" id="nome" value="#{fornecedorController.fornecedor.nome}" size="50" required="true" 
+						requiredMessage="Nome é obrigatório!"/>
+				</div>
+				<div class="col-md-4">
+					<p:outputLabel for="cnpj" value="CNPJ:"/>
 					<p:inputMask id="cnpj" value="#{fornecedorController.fornecedor.cnpj}" mask="99.999.999/9999-99" required="true" 
-					requiredMessage="Informe o campo CNPJ" size="15"/>
-				</p:column>
-			</p:row>
-			<p:row>
-				<p:column>
-					<p:outputLabel value="Telefones:" for="telefone1" styleClass="label-padrao"/>
-				</p:column>
-				<p:column>
-					<p:inputMask id="telefone1" value="#{fornecedorController.fornecedor.telefones[0].numero}" mask="(99) 9999-9999? x9" required="true" 
-						requiredMessage="Informe o campo Telefone" size="15"/>
-				</p:column>
-				<p:column>
-					<p:outputLabel for="whatsapp2" value="É Whatsapp?" />
-					<p:selectBooleanCheckbox id="whatsapp1" value="#{fornecedorController.fornecedor.telefones[0].whatsapp}" />
-				</p:column>
-			</p:row>
-			<p:row>
-				<p:column>
-				</p:column>
-				<p:column>
-					<p:inputMask id="telefone2" value="#{fornecedorController.fornecedor.telefones[1].numero}" mask="(99)9999-9999"
-						size="15"/>
-				</p:column>
-				<p:column>
-					<p:outputLabel for="whatsapp2" value="É Whatsapp?" />
-					<p:selectBooleanCheckbox id="whatsapp2" value="#{fornecedorController.fornecedor.telefones[1].whatsapp}" />
-				</p:column>
-			</p:row>
-			<p:row>
-				<p:column>
-					<p:outputLabel for="logradouro" value="Logradouro:" styleClass="label-padrao" />
-				</p:column>
-				<p:column colspan="2">
-					<p:inputText id="logradouro" value="#{fornecedorController.fornecedor.endereco.logradouro}" required="true" 
-						requiredMessage="Informe o campo Logradouro" size="50"/>
-				</p:column>
-				<p:column>
-					<p:outputLabel for="numero" value="Número:" styleClass="label-padrao" />
-				</p:column>
-				<p:column>
-					<p:inputText id="numero" value="#{fornecedorController.fornecedor.endereco.numero}" size="5" required="true" requiredMessage="Informe o campo Número!"/>
-				</p:column>
-				<p:column>
-					<p:outputLabel for="complemento" value="Complemento:" styleClass="label-padrao" />
-				</p:column>
-				<p:column>
-					<p:inputText id="complemento" value="#{fornecedorController.fornecedor.endereco.complemento}" size="30"/>
-				</p:column>
-			</p:row>
-			<p:row>
-				<p:column>
-					<p:outputLabel for="bairro" value="Bairro:" styleClass="label-padrao" />
-				</p:column>
-				<p:column colspan="2">
-					<p:inputText id="bairro" value="#{fornecedorController.fornecedor.endereco.bairro}" required="true" 
-					requiredMessage="Informe o campo Bairro!" size="30"/>
-				</p:column>
-				<p:column>
-					<p:outputLabel for="cep" value="CEP:" styleClass="label-padrao" />
-				</p:column>
-				<p:column>
-					<p:inputMask id="cep" value="#{fornecedorController.fornecedor.endereco.cep}" mask="99.999-999" size="10"/>
-				</p:column>
-				
-			</p:row>
+						requiredMessage="CNPJ é obrigatório!" size="15" styleClass="form-control"/>
+				</div>
+			</div>
+			<br/>
 			
-			<p:row>
-				<p:column>
-					<p:outputLabel for="cidade" value="Cidade:" styleClass="label-padrao"/>
-				</p:column>
-				<p:column>
-					<p:inputText id="cidade" value="#{fornecedorController.fornecedor.endereco.cidade}" required="true" requiredMessage="Informe o campo Cidade!"/>
-				</p:column>
-				<p:column>
-					<p:outputLabel for="estado" value="Estado:" styleClass="label-padrao" />
-				</p:column>
-				
-				<p:column colspan="2">
-			        <p:selectOneMenu id="estado" style="width:200px;" value="#{fornecedorController.fornecedor.endereco.estado.id}" required="true" requiredMessage="Informe o campo Estado!">  
+			<div class="row">
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-7 col-xs-7">
+							<p:outputLabel value="Telefones:" for="telefone1" />
+							<p:inputMask id="telefone1" value="#{fornecedorController.fornecedor.telefones[0].numero}" mask="(99) 9999-9999? x9" required="true" 
+									requiredMessage="Telefone é obrigatório!" size="15" styleClass="form-control"/>						
+						</div>
+						<div class="col-md-5 col-xs-5">
+							<p:outputLabel for="whatsapp1" value="É Whatsapp?" /><br/>
+							<p:selectBooleanCheckbox id="whatsapp1" value="#{fornecedorController.fornecedor.telefones[0].whatsapp}" styleClass=""/>
+						</div>
+					</div>
+				</div>
+			</div>			
+			<div class="row">
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-7 col-xs-7">
+							<p:inputMask id="telefone2" value="#{fornecedorController.fornecedor.telefones[1].numero}" mask="(99)9999-9999"
+							size="15" styleClass="form-control"/>						
+						</div>
+						<div class="col-md-5 col-xs-5">
+							<p:selectBooleanCheckbox id="whatsapp2" value="#{fornecedorController.fornecedor.telefones[1].whatsapp}" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+			
+			<div class="row">
+				<div class="col-md-7">
+					<p:outputLabel for="logradouro" value="Logradouro:" />
+					<p:inputText id="logradouro" value="#{fornecedorController.fornecedor.endereco.logradouro}" required="true" 
+							requiredMessage="Logradouro é obrigatório!" size="50" styleClass="form-control"/>
+				</div>
+				<div class="col-md-1">
+					<p:outputLabel for="numero" value="Número:"/>
+					<p:inputText id="numero" value="#{fornecedorController.fornecedor.endereco.numero}" size="5" required="true" 
+						requiredMessage="Número é obrigatório!" styleClass="form-control"/>
+				</div>
+				<div class="col-md-3">
+					<p:outputLabel for="complemento" value="Complemento:" />
+					<p:inputText id="complemento" value="#{fornecedorController.fornecedor.endereco.complemento}" size="30" styleClass="form-control"/>
+				</div>
+			</div>
+			<br/>
+			
+			<div class="row">
+				<div class="col-md-3">
+					<p:outputLabel for="bairro" value="Bairro:" />
+					<p:inputText id="bairro" value="#{fornecedorController.fornecedor.endereco.bairro}" required="true" 
+						requiredMessage="Bairro é obrigatório" size="30" styleClass="form-control"/>
+				</div>
+				<div class="col-md-2">
+					<p:outputLabel for="cep" value="CEP:" />
+					<p:inputMask id="cep" value="#{fornecedorController.fornecedor.endereco.cep}" mask="99.999-999" size="10" styleClass="form-control"/>
+				</div>
+				<div class="col-md-3">
+					<p:outputLabel for="cidade" value="Cidade:" />
+					<p:inputText id="cidade" value="#{fornecedorController.fornecedor.endereco.cidade}" required="true" 
+						requiredMessage="Cidade é obrigatório!" styleClass="form-control"/>
+				</div>
+				<div class="col-md-3">
+					<p:outputLabel for="estado" value="Estado:" /><br/>
+					<p:selectOneMenu id="estado"  value="#{fornecedorController.fornecedor.endereco.estado.id}" 
+						required="true" requiredMessage="Estado é obrigatório!">  
 			            <f:selectItem itemLabel="Selecione..." itemValue=""/>  
 			            <f:selectItems value="#{fornecedorController.selectItensEstados()}"/>  
-			        </p:selectOneMenu> 
-				</p:column>
-			</p:row>
+			        </p:selectOneMenu>
+				</div>
+			</div>
+			<br/>
 			
-		</p:panelGrid>
-		<p:commandButton value="Gravar" id="nonAjax" action="#{fornecedorController.grava}" ajax="false" />
-	</h:form>
+			<p:commandButton value="Gravar" id="gravar" action="#{fornecedorController.grava}" ajax="false" />
+		</h:form>
+	</div>
 </h:body>
 </html>

@@ -8,4 +8,5 @@ public interface EnderecoDAO {
     public List<Endereco> listaEnderecos();
     public void altera(Endereco e);
     public void inclui(Endereco e);
+    public void remove(Endereco e);
 }

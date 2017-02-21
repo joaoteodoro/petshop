@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:h="http://java.sun.com/jsf/html">
+<h:body>
+	<h:outputStylesheet library="css" name="bootstrap.min.css"/>
+	<h:outputStylesheet library="css" name="estilo.css"/>
+<!-- 	<h:outputScript  library="javascript" name="jquery.min.js"></h:outputScript> -->
+<!-- 	<h:outputScript  library="javascript" name="jquery-ui.min.js"></h:outputScript> -->
+	<h:outputScript  library="javascript" name="bootstrap.min.js"></h:outputScript>
+	<nav class="navbar navbar-inverse barra-menu">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>                        
+	      </button>
+	      <a class="navbar-brand" href="#">Logo</a>
+	    </div>
+	    <div class="collapse navbar-collapse" id="myNavbar">
+	      <ul class="nav navbar-nav">
+	        <li class="active"><a href="#">Principal</a></li>
+	        <li><a href="produtos.xhtml">Produtos</a></li>
+	        <li><a href="#{request.contextPath}/cliente/clientes.xhtml">Clientes</a></li>
+	        <li><a href="#{request.contextPath}/fornecedor/fornecedores.xhtml">Fornecedores</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+</h:body>
+</html>

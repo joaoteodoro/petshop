@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -27,9 +28,12 @@ public class Fornecedor extends Pessoa {
 		this.endereco = new Endereco();
 		this.setTelefones(Arrays.asList(new Telefone(), new Telefone()));
 	}
-
-	@ManyToOne
+	
+	@OneToOne
 	private Endereco endereco;
+
+//	@ManyToOne
+//	private Endereco endereco;
 	private String cnpj;
 
 	public String getCnpj() {

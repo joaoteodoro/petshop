@@ -10,28 +10,49 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<title>Fornecedores</title>
+	<f:facet name="first">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    </f:facet>
 </h:head>
 <h:body>
-	<h:form>	
-		<p:dataTable var="fornecedor" value="#{fornecedorController.listaFornecedores()}"
-			reflow="true" rows="15" paginator="true">
-			<p:column headerText="Id">
-				<h:outputText value="#{fornecedor.idPessoa}" />
-			</p:column>
-
-			<p:column headerText="Nome">
-				<h:outputText value="#{fornecedor.nome}" />
-			</p:column>
-
-			<p:column headerText="CNPJ">
-				<h:outputText value="#{fornecedor.cnpj}" />
-			</p:column>
-			<p:column>
-				<h:commandButton id="editar" action="#{fornecedorController.editaFornecedor(fornecedor)}" value="Editar Fornecedor"/>				
-			</p:column>
-		</p:dataTable>
-		<br/>
-		<p:commandButton id="novo" value="Adicionar Fornecedor" action="#{fornecedorController.novo()}" ajax="false" />
-	</h:form>	
+	<ui:include src="/includes.xhtml" />
+	<div class="container-fluid div-principal-fundo">
+		<h:form>
+		    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		</h:form>
+		<h:form>	
+			<p:dataTable id="tabelaFornecedores" var="fornecedor" value="#{fornecedorController.listaFornecedores()}" widgetVar="fornecedorTable" 
+					multiViewState="true" rows="10" paginator="true"
+	                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                rowsPerPageTemplate="5,10,15" reflow="true"
+	                selectionMode="single" rowKey="#{fornecedor.idPessoa}"
+	                emptyMessage="Não existem fornecedores cadastrados ou não existem fornecedores para a pesquisa informada!" filteredValue="#{fornecedorController.fornecedoresFiltrados}">
+				<f:facet name="header">
+		            <p:outputPanel>
+		                <h:outputText value="Pesquisar Fornecedor:" />
+		                <p:inputText id="globalFilter" onkeyup="PF('fornecedorTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+		            </p:outputPanel>
+		        </f:facet>
+				
+				<p:column headerText="Id" filterBy="#{fornecedor.idPessoa}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{fornecedor.idPessoa}" />
+				</p:column>
+	
+				<p:column headerText="Nome" filterBy="#{fornecedor.nome}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{fornecedor.nome}" />
+				</p:column>
+	
+				<p:column headerText="CNPJ" filterBy="#{fornecedor.cnpj}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{fornecedor.cnpj}" />
+				</p:column>
+				<p:column>
+					<p:commandButton action="#{fornecedorController.editaFornecedor(fornecedor)}" id="editar" icon="fa fa-fw fa-edit" title="Editar Fornecedor" />
+					<p:commandButton update="tabelaFornecedores" action="#{fornecedorController.removeFornecedor(fornecedor)}" id="excluir" icon="fa fa-fw fa-remove" title="Excluir Fornecedor" />
+				</p:column>
+			</p:dataTable>
+			<br/>
+			<p:commandButton id="novo" value="Adicionar Fornecedor" action="#{fornecedorController.novo()}" ajax="false" />
+		</h:form>
+	</div>
 </h:body>
 </html>

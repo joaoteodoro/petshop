@@ -25,7 +25,12 @@
 		<property name="password" value="" />
 	</bean>
 	
-	
+	<bean id="clienteDao" 
+		class="br.com.petshop.dao.ClienteDAOImpl"/>
+	<bean id="clienteController"
+		class="br.com.petshop.controle.ClienteControllerImpl">
+		<property name="clienteDao" ref="clienteDao"></property>
+	</bean>
 	
 	<bean id="estadoDao" 
 		class="br.com.petshop.dao.EstadoDAOImpl"/>
@@ -33,10 +38,10 @@
 		class="br.com.petshop.controle.EstadoControllerImpl">
 		<property name="estadoDao" ref="estadoDao"></property>
 	</bean>
-	<bean id="estadoConverter"
-		class="br.com.petshop.converter.EstadoConverter">
-		<property name="estadoDao" ref="estadoDao"></property>
-	</bean>
+<!-- 	<bean id="estadoConverter" -->
+<!-- 		class="br.com.petshop.converter.EstadoConverter"> -->
+<!-- 		<property name="estadoDao" ref="estadoDao"></property> -->
+<!-- 	</bean> -->
 	
 	<bean id="fornecedorDao" 
 		class="br.com.petshop.dao.FornecedorDAOImpl"/>

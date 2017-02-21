@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +23,7 @@ public class Endereco {
 	private String logradouro;
 	private String bairro;
 	private String cidade;
-	private int numero;
+	private Long numero;
 	private String complemento;
 	private String cep;
 	
@@ -57,10 +58,10 @@ public class Endereco {
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
-	public int getNumero() {
+	public Long getNumero() {
 		return numero;
 	}
-	public void setNumero(int numero) {
+	public void setNumero(Long numero) {
 		this.numero = numero;
 	}
 	public String getComplemento() {

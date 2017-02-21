@@ -9,13 +9,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.petshop.modelo.Endereco;
-import br.com.petshop.modelo.Fornecedor;
+import br.com.petshop.modelo.Cliente;
 
 @Repository
 @Service
 @Transactional
-public class EnderecoDAOImpl implements EnderecoDAO{
+public class ClienteDAOImpl implements ClienteDAO{
 	
 	@PersistenceContext
 	EntityManager entityManagerFactory;
@@ -27,22 +26,25 @@ public class EnderecoDAOImpl implements EnderecoDAO{
 	}
 
 	@Override
-	public List<Endereco> listaEnderecos() {
+	public List<Cliente> listaClientes() {
 		@SuppressWarnings("unchecked")
-		List<Endereco> enderecos =  entityManagerFactory.createQuery("from Endereco").getResultList();
-        return enderecos;
+		List<Cliente> clientes =  entityManagerFactory.createQuery("from Cliente").getResultList();
+        return clientes;
 	}
 	
-	public void altera(Endereco e){
-		entityManagerFactory.merge(e);
+	public void altera(Cliente c){
+		entityManagerFactory.merge(c);
 	}
 	
-	public void inclui(Endereco e) {
-		entityManagerFactory.persist(e);
+	public void inclui(Cliente c) {
+		entityManagerFactory.persist(c);
 	}
 	
-	public void remove(Endereco e){
-		entityManagerFactory.remove(entityManagerFactory.getReference(Endereco.class, e.getId()));
+	public Cliente buscaPorId(int idPessoa){
+		return entityManagerFactory.find(Cliente.class, idPessoa);
 	}
  
+	public void remove(Cliente c){
+		entityManagerFactory.remove(entityManagerFactory.getReference(Cliente.class, c.getIdPessoa()));
+	}
 }

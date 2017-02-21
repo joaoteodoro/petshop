@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Cliente</title>
+	<f:facet name="first">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    </f:facet>
+</h:head>
+<h:body>
+	<ui:include src="/includes.xhtml" />
+	<div class="container-fluid div-principal-fundo">
+		<h3 class="text-center"><b>Cadastro de Cliente</b></h3>
+		<h:form>
+		    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		</h:form>
+		<h:form>
+			<h:commandButton rendered="#{clienteController.cliente.idPessoa != 0}" id="excluir" action="#{clienteController.removeCliente(clienteController.cliente)}" 
+				value="Excluir Cliente" ajax="false"/>
+		</h:form>
+		<p:separator />
+		
+		<h:form>
+			<div class="row">
+				<div class="col-md-6">
+					<p:outputLabel for="nome" value="Nome:"  />
+					<p:inputText styleClass="form-control" id="nome" value="#{clienteController.cliente.nome}" size="50" required="true" 
+						requiredMessage="Nome é obrigatório!"/>
+				</div>
+				<div class="col-md-4">
+					<p:outputLabel for="cpf" value="CPF:"/>
+					<p:inputMask id="cpf" value="#{clienteController.cliente.cpf}" mask="999.999.999-99" required="true" 
+						requiredMessage="CPF é obrigatório!" size="15" styleClass="form-control"/>
+				</div>
+			</div>
+			<br/>
+			
+			<div class="row">
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-7 col-xs-7">
+							<p:outputLabel value="Telefones:" for="telefone1" />
+							<p:inputMask id="telefone1" value="#{clienteController.cliente.telefones[0].numero}" mask="(99) 9999-9999? x9" required="true" 
+									requiredMessage="Telefone é obrigatório!" size="15" styleClass="form-control"/>						
+						</div>
+						<div class="col-md-5 col-xs-5">
+							<p:outputLabel for="whatsapp1" value="É Whatsapp?" /><br/>
+							<p:selectBooleanCheckbox id="whatsapp1" value="#{clienteController.cliente.telefones[0].whatsapp}" styleClass=""/>
+						</div>
+					</div>
+				</div>
+			</div>			
+			<div class="row">
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-7 col-xs-7">
+							<p:inputMask id="telefone2" value="#{clienteController.cliente.telefones[1].numero}" mask="(99)9999-9999"
+							size="15" styleClass="form-control"/>						
+						</div>
+						<div class="col-md-5 col-xs-5">
+							<p:selectBooleanCheckbox id="whatsapp2" value="#{clienteController.cliente.telefones[1].whatsapp}" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+			
+			<div class="row">
+				<div class="col-md-7">
+					<p:outputLabel for="logradouro" value="Logradouro:" />
+					<p:inputText id="logradouro" value="#{clienteController.cliente.endereco.logradouro}" required="true" 
+							requiredMessage="Logradouro é obrigatório!" size="50" styleClass="form-control"/>
+				</div>
+				<div class="col-md-1">
+					<p:outputLabel for="numero" value="Número:"/>
+					<p:inputText id="numero" value="#{clienteController.cliente.endereco.numero}" size="5" required="true" 
+						requiredMessage="Número é obrigatório!" styleClass="form-control"/>
+				</div>
+				<div class="col-md-3">
+					<p:outputLabel for="complemento" value="Complemento:" />
+					<p:inputText id="complemento" value="#{clienteController.cliente.endereco.complemento}" size="30" styleClass="form-control"/>
+				</div>
+			</div>
+			<br/>
+			
+			<div class="row">
+				<div class="col-md-3">
+					<p:outputLabel for="bairro" value="Bairro:" />
+					<p:inputText id="bairro" value="#{clienteController.cliente.endereco.bairro}" required="true" 
+						requiredMessage="Bairro é obrigatório" size="30" styleClass="form-control"/>
+				</div>
+				<div class="col-md-2">
+					<p:outputLabel for="cep" value="CEP:" />
+					<p:inputMask id="cep" value="#{clienteController.cliente.endereco.cep}" mask="99.999-999" size="10" styleClass="form-control"/>
+				</div>
+				<div class="col-md-3">
+					<p:outputLabel for="cidade" value="Cidade:" />
+					<p:inputText id="cidade" value="#{clienteController.cliente.endereco.cidade}" required="true" 
+						requiredMessage="Cidade é obrigatório!" styleClass="form-control"/>
+				</div>
+				<div class="col-md-3">
+					<p:outputLabel for="estado" value="Estado:" /><br/>
+					<p:selectOneMenu id="estado"  value="#{clienteController.cliente.endereco.estado.id}" 
+						required="true" requiredMessage="Estado é obrigatório!">  
+			            <f:selectItem itemLabel="Selecione..." itemValue=""/>  
+			            <f:selectItems value="#{clienteController.selectItensEstados()}"/>  
+			        </p:selectOneMenu>
+				</div>
+			</div>
+			<br/>
+			
+			<p:commandButton process="@this,tabelaAnimais" update="tabelaAnimais" actionListener="#{clienteController.novoAnimal()}" id="novoAnimal"
+			 icon="fa fa-fw fa-plus" title="Novo Animal" ajax="true"/>
+				
+			<p:dataTable id="tabelaAnimais" var="animal" value="#{clienteController.cliente.animais}">
+			    <p:column headerText="Nome do Animal">
+			    	<p:inputText id="nomeAnimal" value="#{animal.nome}" required="true" 
+						requiredMessage="Nome é obrigatório!" styleClass="form-control"/>
+			    </p:column>
+			 
+			    <p:column headerText="Raça">
+			        <p:inputText id="raca" value="#{animal.raca}" required="true" 
+						requiredMessage="Raça é obrigatório!" styleClass="form-control"/>
+			    </p:column>
+			 
+			    <p:column headerText="Data de Nascimento">
+			    	<p:calendar id="dtNascimento" value="#{animal.dtNascimento}" pattern="dd-MM-yyyy" mask="true" required="true"
+			    		requiredMessage="Data de Nascimento é obrigatório!"/>
+			    </p:column>
+			</p:dataTable>
+			
+			<p:commandButton value="Gravar" id="gravar" action="#{clienteController.grava}" ajax="false" />
+		</h:form>
+	</div>
+</h:body>
+</html>
