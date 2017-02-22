@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +33,8 @@ public class Cliente extends Pessoa {
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)
 //	private int idCliente;
 	
-	@OneToMany(mappedBy = "dono", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+//	@OneToMany(mappedBy = "dono", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@OneToMany(mappedBy = "dono", cascade = { CascadeType.ALL/*, CascadeType.REMOVE */}, fetch=FetchType.EAGER, orphanRemoval=true)
 	private List<Animal> animais = new ArrayList<>();
 
 	@ManyToOne
@@ -44,7 +46,6 @@ public class Cliente extends Pessoa {
 	public Cliente(){
 		this.endereco = new Endereco();
 		this.setTelefones(Arrays.asList(new Telefone(), new Telefone()));
-		this.animais.add(new Animal());
 		this.animais.add(new Animal());
 	}
 

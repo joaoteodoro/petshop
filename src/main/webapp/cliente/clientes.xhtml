@@ -13,43 +13,43 @@
 </h:head>
 <h:body>
 	<ui:include src="/includes.xhtml" />
-	<h:form>
-	    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-	</h:form>
-	<h:form>
-		<p:dataTable var="cliente" value="#{clienteController.listaClientes()}" reflow="true">
-	        <f:facet name="header">
-	            Clientes
-	        </f:facet>
-	 
-	        <p:columnGroup type="header">
-	            <p:row>
-	                <p:column rowspan="2" headerText="Cliente" />
-	                <p:column colspan="2" headerText="Animal" />
-	            </p:row>
-	            <p:row>
-	                <p:column headerText="Nome do animal" />
-	                <p:column headerText="Raça do animal" />
-	            </p:row>
-	        </p:columnGroup>
-	 
-	        <p:subTable var="animal" value="#{cliente.animais}">
-	            <f:facet name="header">
-	                <h:outputText value="#{cliente.nome}" />
-	            </f:facet>
-	            <p:column>
-	                
-	            </p:column>
-	            <p:column>
-	                <h:outputText value="#{animal.nome}" />
-	            </p:column>
-	            <p:column>
-	                <h:outputText value="#{animal.raca}" />
-	            </p:column>
-	        </p:subTable>
-	    </p:dataTable>
-		<br/>
-		<p:commandButton id="novo" value="Adicionar Cliente" action="#{clienteController.novo()}" ajax="false" />
-	</h:form>	
+	<div class="container-fluid div-principal-fundo">
+		<h:form>
+		    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		</h:form>
+		<h:form>
+			<p:dataTable id="tabelaClientes" var="cliente" value="#{clienteController.listaClientes()}" multiViewState="true" rows="10" paginator="true" widgetVar="clienteTable"
+		                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                rowsPerPageTemplate="5,10,15" reflow="true" filteredValue="#{clienteController.clientesFiltrados}"
+		                selectionMode="single" rowKey="#{cliente.idPessoa}"
+		                emptyMessage="Não existem clientes cadastrados ou não existem clientes para a pesquisa informada!">	        
+		        <f:facet name="header">
+			            <p:outputPanel>
+			                <h:outputText value="Pesquisar Cliente" />
+			                <p:inputText id="globalFilter" onkeyup="PF('clienteTable').filter()" style="width:150px" placeholder="Pesquisa..."/>
+			            </p:outputPanel>
+			        </f:facet>
+		 
+		        <p:column headerText="Id" filterBy="#{cliente.idPessoa}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{cliente.idPessoa}" />
+				</p:column>
+	
+				<p:column headerText="Nome" filterBy="#{cliente.nome}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{cliente.nome}" />
+				</p:column>
+	
+				<p:column headerText="CPF" filterBy="#{cliente.cpf}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{cliente.cpf}" />
+				</p:column>
+				
+				<p:column>
+		        	<p:commandButton action="#{clienteController.editaCliente(cliente)}" id="editar" icon="fa fa-fw fa-edit" title="Editar Cliente" />
+					<p:commandButton update="tabelaClientes" action="#{clienteController.removeCliente(cliente)}" id="excluir" icon="fa fa-fw fa-remove" title="Excluir Cliente" />
+				</p:column>
+		    </p:dataTable>
+			<br/>
+			<p:commandButton id="novo" value="Adicionar Cliente" action="#{clienteController.novo()}" ajax="false" />
+		</h:form>
+	</div>	
 </h:body>
 </html>
