@@ -134,6 +134,9 @@
 			    	<p:calendar id="dtNascimento" value="#{animal.dtNascimento}" pattern="dd-MM-yyyy" mask="true" required="true"
 			    		requiredMessage="Data de Nascimento é obrigatório!"/>
 			    </p:column>
+			    <p:column>
+					<p:commandButton update="tabelaAnimais" action="#{clienteController.removeAnimal(animal)}" id="excluir" icon="fa fa-fw fa-remove" title="Excluir Animal" />
+				</p:column>
 			</p:dataTable>
 			
 			<p:commandButton value="Gravar" id="gravar" action="#{clienteController.grava}" ajax="false" />

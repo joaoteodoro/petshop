@@ -3,11 +3,7 @@ package br.com.petshop.modelo;
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -23,7 +19,14 @@ public class ProdutoVenda extends Produto{
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)
 //	private int idProdutoVenda;
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private int quantidade;
+	
+	private TipoUnidade tipoUnidadeVenda;
 
 	@ManyToOne
 	private Produto produto;
@@ -34,6 +37,8 @@ public class ProdutoVenda extends Produto{
 	private Date dtExecucaoServico;
 
 	private boolean servicoExecutado;
+	
+	private boolean ehServico;
 
 	public boolean isServicoExecutado() {
 		return servicoExecutado;
@@ -73,5 +78,21 @@ public class ProdutoVenda extends Produto{
 
 	public void setDtExecucaoServico(Date dtExecucaoServico) {
 		this.dtExecucaoServico = dtExecucaoServico;
+	}
+
+	public TipoUnidade getTipoUnidadeVenda() {
+		return tipoUnidadeVenda;
+	}
+
+	public void setTipoUnidadeVenda(TipoUnidade tipoUnidadeVenda) {
+		this.tipoUnidadeVenda = tipoUnidadeVenda;
+	}
+
+	public boolean isEhServico() {
+		return ehServico;
+	}
+
+	public void setEhServico(boolean ehServico) {
+		this.ehServico = ehServico;
 	}
 }

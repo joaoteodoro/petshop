@@ -1,11 +1,8 @@
 package br.com.petshop.modelo;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -36,22 +32,21 @@ public class Produto implements Serializable{
 	
 	private String nome;
 	private String descricao;
-	private Date dtCompra;
-	private TipoUnidade tipoUnidadeCompra; // peca, pacote, quilograma,
-	private TipoUnidade tipoUnidadeVenda;
+	//private Date dtCompra;
+	//private TipoUnidade tipoUnidadeCompra; // peca, pacote, quilograma,
+	//private TipoUnidade tipoUnidadeVenda;
 	//private float quantidadeCompra;
 	//private float quantidadeVenda; // 1 pct, 1 peca, 1 kg
 	
-	private Fornecedor fornecedor;
-	private float valorDeCompra;
-	private float valoDeVenda;
-	private boolean servico;
+	//private Fornecedor fornecedor;
+	private float valor;
+	//private boolean servico;
 	
-	@OneToMany(mappedBy = "produto", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	/*@OneToMany(mappedBy = "produto", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<ProdutoVenda> produtosVenda;
 	
 	@OneToMany(mappedBy = "produto", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-	private List<ProdutoCompra> produtoCompra;
+	private List<ProdutoCompra> produtoCompra;*/
 
 	public int getIdProduto() {
 		return idProduto;
@@ -69,13 +64,13 @@ public class Produto implements Serializable{
 		this.nome = nome;
 	}
 
-	public Date getDtCompra() {
+	/*public Date getDtCompra() {
 		return dtCompra;
 	}
 
 	public void setDtCompra(Date dtCompra) {
 		this.dtCompra = dtCompra;
-	}
+	}*/
 
 	public String getDescricao() {
 		return descricao;
@@ -83,6 +78,14 @@ public class Produto implements Serializable{
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public float getValor() {
+		return valor;
+	}
+
+	public void setValor(float valor) {
+		this.valor = valor;
 	}
 
 	/*public float getQuantidadeCompra() {
@@ -101,15 +104,15 @@ public class Produto implements Serializable{
 		this.quantidadeVenda = quantidadeVenda;
 	}*/
 
-	public Fornecedor getFornecedor() {
+	/*public Fornecedor getFornecedor() {
 		return fornecedor;
 	}
 
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
-	}
+	}*/
 
-	public TipoUnidade getTipoUnidadeCompra() {
+	/*public TipoUnidade getTipoUnidadeCompra() {
 		return tipoUnidadeCompra;
 	}
 
@@ -139,9 +142,9 @@ public class Produto implements Serializable{
 
 	public void setValoDeVenda(float valoDeVenda) {
 		this.valoDeVenda = valoDeVenda;
-	}
+	}*/
 
-	public boolean isServico() {
+	/*public boolean isServico() {
 		return servico;
 	}
 
@@ -163,6 +166,6 @@ public class Produto implements Serializable{
 
 	public void setProdutoCompra(List<ProdutoCompra> produtoCompra) {
 		this.produtoCompra = produtoCompra;
-	}
+	}*/
 
 }

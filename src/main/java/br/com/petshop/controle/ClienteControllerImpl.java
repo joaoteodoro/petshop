@@ -170,6 +170,11 @@ public class ClienteControllerImpl implements ClienteController {
 		}
 	}
 	
+	public void removeAnimal(Animal animal){
+		cliente.getAnimais().remove(animal);
+//		return editaCliente(cliente);
+	}
+	
 	public ClienteDAO getClienteDao() {
 		return clienteDao;
 	}
