@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Produto Compra</title>
+	<f:facet name="first">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    </f:facet>
+</h:head>
+<h:body>
+	<ui:include src="/includes.xhtml" />
+	<div class="container-fluid div-principal-fundo">
+		<h3 class="text-center"><b>Cadastro de Produto de Compra</b></h3>
+		<h:form>
+		    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		</h:form>
+		<h:form>
+			<h:commandButton rendered="#{produtoCompraController.produtoCompra.idProduto != 0}" id="excluir" action="#{produtoCompraController.removeProdutoCompra(produtoCompraController.produtoCompra)}" 
+				value="Excluir Produto Compra" ajax="false"/>
+		</h:form>
+		<p:separator />
+		
+		<h:form>
+			<div class="row">
+				<div class="col-md-6">
+					<p:outputLabel for="nome" value="Nome:"  />
+					<p:inputText styleClass="form-control" id="nome" value="#{produtoCompraController.produtoCompra.nome}" size="50" required="true" 
+						requiredMessage="Nome é obrigatório!"/>
+				</div>
+				<div class="col-md-6">
+					<p:outputLabel for="descricao" value="Descrição:"/>
+					<p:inputText id="descricao" value="#{produtoCompraController.produtoCompra.descricao}" size="60" styleClass="form-control"/>
+				</div>
+			</div>
+			<br/>
+			
+			<div class="row">
+				<div class="col-md-3">
+					<p:outputLabel for="valor" value="Valor:"  />
+					<p:inputText maxlength="15" size="20" id="valor" required="true" value="#{produtoCompraController.produtoCompra.valor}">
+						<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+					</p:inputText>
+				</div>
+				<div class="col-md-3">
+					<p:outputLabel for="quantidade" value="Quantidade:"/>
+					<p:inputText id="quantidade" value="#{produtoCompraController.produtoCompra.quantidade}" size="60" styleClass="form-control"/>
+				</div>
+				<div class="col-md-3">
+					<p:outputLabel for="tipoUnidade" value="Unidade"/>
+					<p:inputText id="tipoUnidade" value="#{produtoCompraController.produtoCompra.tipoUnidadeCompra}" size="60" styleClass="form-control"/>
+				</div>
+			</div>
+			<br/>
+			
+			<div class="row">
+				<div class="col-md-3">
+					<p:outputLabel for="quantidade" value="Quantidade:"/>
+					<p:inputText id="quantidade" value="#{produtoCompraController.produtoCompra.quantidade}" size="60" styleClass="form-control"/>
+				</div>
+			</div>
+			<br/>
+			
+			
+			
+			
+			<p:commandButton value="Gravar" id="gravar" action="#{clienteController.grava}" ajax="false" />
+		</h:form>
+	</div>
+	<script>
+		$("input[id*='valor']").maskMoney({thousands:'.', decimal:','});
+	</script>
+</h:body>
+</html>

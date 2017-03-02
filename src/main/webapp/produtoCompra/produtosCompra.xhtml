@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Produtos Compra</title>
+	<f:facet name="first">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    </f:facet>
+</h:head>
+<h:body>
+	<ui:include src="/includes.xhtml" />
+	<div class="container-fluid div-principal-fundo">
+		<h:form>
+		    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		</h:form>
+		<h:form>
+			<p:dataTable id="tabelaProdutosCompra" var="produtoCompra" value="#{produtoCompraController.listaProdutosCompra()}" multiViewState="true" rows="10" paginator="true" widgetVar="produtoCompraTable"
+		                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                rowsPerPageTemplate="5,10,15" reflow="true" filteredValue="#{produtoCompraController.produtosCompraFiltrados}"
+		                selectionMode="single" rowKey="#{produtoCompra.idProduto}"
+		                emptyMessage="Não existem produtos de compra cadastrados ou não existem produtos de compra para a pesquisa informada!">	        
+		        <f:facet name="header">
+			            <p:outputPanel>
+			                <h:outputText value="Pesquisar Produto Compra" />
+			                <p:inputText id="globalFilter" onkeyup="PF('produtoCompraTable').filter()" style="width:150px" placeholder="Pesquisa..."/>
+			            </p:outputPanel>
+			        </f:facet>
+	
+				<p:column headerText="Nome" filterBy="#{produtoCompra.nome}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produtoCompra.nome}" />
+				</p:column>
+	
+				<p:column headerText="Descrição" filterBy="#{produtoCompra.descricao}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produtoCompra.descricao}" />
+				</p:column>
+				
+				<p:column headerText="Quantidade" filterBy="#{produtoCompra.quantidade}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produtoCompra.quantidade}" />
+				</p:column>
+				
+				<p:column headerText="Unidade" filterBy="#{produtoCompra.tipoUnidadeCompra}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produtoCompra.tipoUnidadeCompra}" />
+				</p:column>
+				
+				<p:column headerText="Valor Ult. Compra" filterBy="#{produtoCompra.valor}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produtoCompra.valor}" />
+				</p:column>
+				
+				<p:column headerText="Qtd. Estoque" filterBy="#{produtoCompra.quantidadeEstoque}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produtoCompra.quantidadeEstoque}" />
+				</p:column>
+				
+				<p:column>
+		        	<p:commandButton action="#{produtoCompraController.editaProdutoCompra(produtoCompra)}" id="editar" icon="fa fa-fw fa-edit" title="Editar Produto Compra" />
+					<p:commandButton update="tabelaProdutosCompra" action="#{produtoCompraController.removeProdutoCompra(produtoCompra)}" id="excluir" icon="fa fa-fw fa-remove" title="Excluir Produto Compra" />
+				</p:column>
+		    </p:dataTable>
+			<br/>
+			<p:commandButton id="novo" value="Adicionar Produto Compra" action="#{produtoCompraController.novo()}" ajax="false" />
+		</h:form>
+	</div>	
+</h:body>
+</html>

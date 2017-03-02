@@ -26,11 +26,13 @@ public class ProdutoCompra extends Produto{
 	
 	private TipoUnidade tipoUnidadeCompra;
 
-	@ManyToOne
-	private Produto produto;
+//	@ManyToOne
+//	private Produto produto;
 
 	@ManyToOne
 	private Compra compra;
+	
+	private Long quantidadeEstoque;
 
 	/*public int getIdProdutoCompra() {
 		return idProdutoCompra;
@@ -48,13 +50,13 @@ public class ProdutoCompra extends Produto{
 		this.quantidade = quantidade;
 	}
 
-	public Produto getProduto() {
+	/*public Produto getProduto() {
 		return produto;
 	}
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
-	}
+	}*/
 
 	public Compra getCompra() {
 		return compra;
@@ -70,6 +72,14 @@ public class ProdutoCompra extends Produto{
 
 	public void setTipoUnidadeCompra(TipoUnidade tipoUnidadeCompra) {
 		this.tipoUnidadeCompra = tipoUnidadeCompra;
+	}
+
+	public Long getQuantidadeEstoque() {
+		return quantidadeEstoque;
+	}
+
+	public void setQuantidadeEstoque(Long quantidadeEstoque) {
+		this.quantidadeEstoque = quantidadeEstoque;
 	}
 
 }

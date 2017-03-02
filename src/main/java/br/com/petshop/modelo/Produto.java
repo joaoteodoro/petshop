@@ -1,6 +1,7 @@
 package br.com.petshop.modelo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.faces.bean.ManagedBean;
 import javax.persistence.Column;
@@ -39,7 +40,7 @@ public class Produto implements Serializable{
 	//private float quantidadeVenda; // 1 pct, 1 peca, 1 kg
 	
 	//private Fornecedor fornecedor;
-	private float valor;
+	private BigDecimal valor;
 	//private boolean servico;
 	
 	/*@OneToMany(mappedBy = "produto", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
@@ -80,13 +81,15 @@ public class Produto implements Serializable{
 		this.descricao = descricao;
 	}
 
-	public float getValor() {
+	public BigDecimal getValor() {
 		return valor;
 	}
 
-	public void setValor(float valor) {
+	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
+
+	
 
 	/*public float getQuantidadeCompra() {
 		return quantidadeCompra;
