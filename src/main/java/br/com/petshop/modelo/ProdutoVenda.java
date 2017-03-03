@@ -28,8 +28,11 @@ public class ProdutoVenda extends Produto{
 	
 	private TipoUnidade tipoUnidadeVenda;
 
+	/*@ManyToOne
+	private Produto produto;*/
+	
 	@ManyToOne
-	private Produto produto;
+	ProdutoCompra produtoCompra;
 
 	@ManyToOne
 	private Venda venda;
@@ -54,14 +57,6 @@ public class ProdutoVenda extends Produto{
 
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
-	}
-
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
 	}
 
 	public Venda getVenda() {
@@ -94,5 +89,13 @@ public class ProdutoVenda extends Produto{
 
 	public void setEhServico(boolean ehServico) {
 		this.ehServico = ehServico;
+	}
+
+	public ProdutoCompra getProdutoCompra() {
+		return produtoCompra;
+	}
+
+	public void setProdutoCompra(ProdutoCompra produtoCompra) {
+		this.produtoCompra = produtoCompra;
 	}
 }
