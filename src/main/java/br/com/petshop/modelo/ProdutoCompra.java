@@ -1,21 +1,23 @@
 package br.com.petshop.modelo;
 
-import javax.faces.bean.ManagedBean;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import java.math.BigDecimal;
 
-@Entity
-@PrimaryKeyJoinColumn(name = "idProduto")
-@Table(name = "produtoCompra")
-@ManagedBean(name = "produtoCompra")
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+//@Entity
+//@PrimaryKeyJoinColumn(name = "idProduto")
+//@Table(name = "produtoCompra")
+//@ManagedBean(name = "produtoCompra")
 public class ProdutoCompra extends Produto{
 
-//	@Id
-//	@Column(name = "idProdutoCompra")
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private int idProdutoCompra;
+	@Id
+	@Column(name = "idProdutoCompra")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idProdutoCompra;
 
 	/**
 	 * 
@@ -24,23 +26,21 @@ public class ProdutoCompra extends Produto{
 
 	private int quantidade;
 	
-	private TipoUnidade tipoUnidadeCompra;
+	private BigDecimal valorUnitario;
 
-//	@ManyToOne
-//	private Produto produto;
+	@ManyToOne
+	private Produto produto;
 
 	@ManyToOne
 	private Compra compra;
-	
-	private Long quantidadeEstoque;
 
-	/*public int getIdProdutoCompra() {
+	public Long getIdProdutoCompra() {
 		return idProdutoCompra;
 	}
 
-	public void setIdProdutoCompra(int idProdutoCompra) {
+	public void setIdProdutoCompra(Long idProdutoCompra) {
 		this.idProdutoCompra = idProdutoCompra;
-	}*/
+	}
 
 	public int getQuantidade() {
 		return quantidade;
@@ -50,13 +50,13 @@ public class ProdutoCompra extends Produto{
 		this.quantidade = quantidade;
 	}
 
-	/*public Produto getProduto() {
+	public Produto getProduto() {
 		return produto;
 	}
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
-	}*/
+	}
 
 	public Compra getCompra() {
 		return compra;
@@ -66,20 +66,11 @@ public class ProdutoCompra extends Produto{
 		this.compra = compra;
 	}
 
-	public TipoUnidade getTipoUnidadeCompra() {
-		return tipoUnidadeCompra;
+	public BigDecimal getValorUnitario() {
+		return valorUnitario;
 	}
 
-	public void setTipoUnidadeCompra(TipoUnidade tipoUnidadeCompra) {
-		this.tipoUnidadeCompra = tipoUnidadeCompra;
+	public void setValorUnitario(BigDecimal valorUnitario) {
+		this.valorUnitario = valorUnitario;
 	}
-
-	public Long getQuantidadeEstoque() {
-		return quantidadeEstoque;
-	}
-
-	public void setQuantidadeEstoque(Long quantidadeEstoque) {
-		this.quantidadeEstoque = quantidadeEstoque;
-	}
-
 }

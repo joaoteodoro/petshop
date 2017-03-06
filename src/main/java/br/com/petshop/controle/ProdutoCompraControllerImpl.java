@@ -1,16 +1,20 @@
 package br.com.petshop.controle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.petshop.dao.ProdutoCompraDAO;
+import br.com.petshop.modelo.Estado;
 import br.com.petshop.modelo.ProdutoCompra;
+import br.com.petshop.modelo.TipoUnidade;
 
 @ManagedBean(name = "produtoCompraController")
 @ViewScoped
@@ -63,6 +67,14 @@ public class ProdutoCompraControllerImpl implements ProdutoCompraController {
 		this.produtoCompra = produtoCompraDao.buscaPorId(this.produtoCompra.getIdProduto());
 		
 		return editaProdutoCompra(produtoCompra);
+	}
+	
+	public List<SelectItem> selectItensTipoUnidade(){
+		List<SelectItem> itens = new ArrayList<>();
+		for (TipoUnidade tipoUnidade : TipoUnidade.values()) {
+			itens.add(new SelectItem(tipoUnidade, tipoUnidade.getDescricao()));
+		} 
+		return itens;
 	}
 
 	public ProdutoCompraDAO getProdutoCompraDao() {

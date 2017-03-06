@@ -1,5 +1,6 @@
 package br.com.petshop.modelo;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class Compra {
 	@ManyToOne
 	private Fornecedor fornecedor;
 
-	private float valorFinal;
+	private BigDecimal valorFinal;
 
 	private Date dtCompra;
 	
@@ -65,11 +66,11 @@ public class Compra {
 		this.fornecedor = fornecedor;
 	}
 
-	public float getValorFinal() {
+	public BigDecimal getValorFinal() {
 		return valorFinal;
 	}
 
-	public void setValorFinal(float valorFinal) {
+	public void setValorFinal(BigDecimal valorFinal) {
 		this.valorFinal = valorFinal;
 	}
 

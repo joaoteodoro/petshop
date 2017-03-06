@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -40,7 +41,18 @@ public class Produto implements Serializable{
 	//private float quantidadeVenda; // 1 pct, 1 peca, 1 kg
 	
 	//private Fornecedor fornecedor;
-	private BigDecimal valor;
+	private BigDecimal valorAtual;
+	
+	private Long quantidadeEstoque;
+	
+	private Long quantidadeUnidade;
+	
+	private TipoProduto tipoProduto;
+	
+	private TipoUnidade tipoUnidade;
+	
+	@ManyToOne
+	private Produto produtoMatriz;
 	//private boolean servico;
 	
 	/*@OneToMany(mappedBy = "produto", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
@@ -81,12 +93,52 @@ public class Produto implements Serializable{
 		this.descricao = descricao;
 	}
 
-	public BigDecimal getValor() {
-		return valor;
+	public Long getQuantidadeEstoque() {
+		return quantidadeEstoque;
 	}
 
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
+	public void setQuantidadeEstoque(Long quantidadeEstoque) {
+		this.quantidadeEstoque = quantidadeEstoque;
+	}
+
+	public TipoProduto getTipoProduto() {
+		return tipoProduto;
+	}
+
+	public void setTipoProduto(TipoProduto tipoProduto) {
+		this.tipoProduto = tipoProduto;
+	}
+
+	public TipoUnidade getTipoUnidade() {
+		return tipoUnidade;
+	}
+
+	public void setTipoUnidade(TipoUnidade tipoUnidade) {
+		this.tipoUnidade = tipoUnidade;
+	}
+
+	public BigDecimal getValorAtual() {
+		return valorAtual;
+	}
+
+	public void setValorAtual(BigDecimal valorAtual) {
+		this.valorAtual = valorAtual;
+	}
+
+	public Produto getProdutoMatriz() {
+		return produtoMatriz;
+	}
+
+	public void setProdutoMatriz(Produto produtoMatriz) {
+		this.produtoMatriz = produtoMatriz;
+	}
+
+	public Long getQuantidadeUnidade() {
+		return quantidadeUnidade;
+	}
+
+	public void setQuantidadeUnidade(Long quantidadeUnidade) {
+		this.quantidadeUnidade = quantidadeUnidade;
 	}
 
 	
