@@ -25,7 +25,6 @@ public class ProdutoVendaDAOImpl implements ProdutoVendaDAO{
 		this.entityManagerFactory = entityManagerFactory;
 	}
 
-	@Override
 	public List<ProdutoVenda> listaProdutosVenda() {
 		@SuppressWarnings("unchecked")
 		List<ProdutoVenda> produtosVenda =  entityManagerFactory.createQuery("from ProdutoVenda").getResultList();
@@ -45,6 +44,6 @@ public class ProdutoVendaDAOImpl implements ProdutoVendaDAO{
 	}
  
 	public void remove(ProdutoVenda pv){
-		entityManagerFactory.remove(entityManagerFactory.getReference(ProdutoVenda.class, pv.getIdProduto()));
+		entityManagerFactory.remove(entityManagerFactory.getReference(ProdutoVenda.class, pv.getIdProdutoVenda()));
 	}
 }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+     
+	<h:head>
+	    <title>Cars</title>
+	    <style type="text/css">
+	        .ui-widget {
+	            font-size: 90%;
+	        }
+	    </style>
+	</h:head>
+	<h:body>
+		<h:form>
+			<p:dataTable var="produto" value="#{produtoController.produtosCompras()}">
+                <p:column headerText="Nome" filterBy="#{produto.nome}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produto.nome}" />
+				</p:column>
+ 
+                <p:column headerText="Descrição" filterBy="#{produto.descricao}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produto.descricao}" />
+				</p:column>
+ 
+                <p:column headerText="Qtd. Unidade" filterBy="#{produto.quantidadeUnidade}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produto.quantidadeUnidade}" />
+				</p:column>
+				
+				<p:column headerText="Unidade" filterBy="#{produto.tipoUnidade}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produto.tipoUnidade}" />
+				</p:column>
+				
+				<p:column headerText="Valor Atual" filterBy="#{produto.valorAtual}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produto.valorAtual}" />
+				</p:column>
+				
+				<p:column headerText="Qtd. Estoque" filterBy="#{produto.quantidadeEstoque}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produto.quantidadeEstoque}" />
+				</p:column>
+ 
+                <p:column style="width:32px;text-align: center">
+                    <p:commandButton icon="ui-icon-search" actionListener="#{produtoController.selecionarProdutoDialogo(produto)}"
+                    oncomplete="window.parent.enviarProdutoCompra()" />
+                </p:column>
+            </p:dataTable>
+		</h:form>
+		<script>
+		
+			
+			
+		</script>
+	</h:body>
+</html>

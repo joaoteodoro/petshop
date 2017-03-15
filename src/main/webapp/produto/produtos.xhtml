@@ -9,7 +9,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-	<title>Produtos Compra</title>
+	<title>Produtos</title>
 	<f:facet name="first">
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
     </f:facet>
@@ -21,49 +21,49 @@
 		    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 		</h:form>
 		<h:form>
-			<p:dataTable id="tabelaProdutosCompra" var="produtoCompra" value="#{produtoCompraController.listaProdutosCompra()}" multiViewState="true" rows="10" paginator="true" widgetVar="produtoCompraTable"
+			<p:dataTable id="tabelaProdutos" var="produto" value="#{produtoController.listaProdutos()}" multiViewState="true" rows="10" paginator="true" widgetVar="produtoTable"
 		                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-		                rowsPerPageTemplate="5,10,15" reflow="true" filteredValue="#{produtoCompraController.produtosCompraFiltrados}"
-		                selectionMode="single" rowKey="#{produtoCompra.idProduto}"
-		                emptyMessage="Não existem produtos de compra cadastrados ou não existem produtos de compra para a pesquisa informada!">	        
+		                rowsPerPageTemplate="5,10,15" reflow="true" filteredValue="#{produtoController.produtosFiltrados}"
+		                selectionMode="single" rowKey="#{produto.idProduto}"
+		                emptyMessage="Não existem produtos cadastrados ou não existem produtos para a pesquisa informada!">	        
 		        <f:facet name="header">
 			            <p:outputPanel>
-			                <h:outputText value="Pesquisar Produto Compra" />
-			                <p:inputText id="globalFilter" onkeyup="PF('produtoCompraTable').filter()" style="width:150px" placeholder="Pesquisa..."/>
+			                <h:outputText value="Pesquisar Produto" />
+			                <p:inputText id="globalFilter" onkeyup="PF('produtoTable').filter()" style="width:150px" placeholder="Pesquisa..."/>
 			            </p:outputPanel>
 			        </f:facet>
 	
-				<p:column headerText="Nome" filterBy="#{produtoCompra.nome}" filterStyle="display:none; visibility:hidden;">
-					<h:outputText value="#{produtoCompra.nome}" />
+				<p:column headerText="Nome" filterBy="#{produto.nome}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produto.nome}" />
 				</p:column>
 	
-				<p:column headerText="Descrição" filterBy="#{produtoCompra.descricao}" filterStyle="display:none; visibility:hidden;">
-					<h:outputText value="#{produtoCompra.descricao}" />
+				<p:column headerText="Descrição" filterBy="#{produto.descricao}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produto.descricao}" />
 				</p:column>
 				
-				<p:column headerText="Quantidade" filterBy="#{produtoCompra.quantidade}" filterStyle="display:none; visibility:hidden;">
-					<h:outputText value="#{produtoCompra.quantidade}" />
+				<p:column headerText="Qtd. Unidade" filterBy="#{produto.quantidadeUnidade}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produto.quantidadeUnidade}" />
 				</p:column>
 				
-				<p:column headerText="Unidade" filterBy="#{produtoCompra.tipoUnidadeCompra}" filterStyle="display:none; visibility:hidden;">
-					<h:outputText value="#{produtoCompra.tipoUnidadeCompra}" />
+				<p:column headerText="Unidade" filterBy="#{produto.tipoUnidade}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produto.tipoUnidade}" />
 				</p:column>
 				
-				<p:column headerText="Valor Ult. Compra" filterBy="#{produtoCompra.valor}" filterStyle="display:none; visibility:hidden;">
-					<h:outputText value="#{produtoCompra.valor}" />
+				<p:column headerText="Valor Atual" filterBy="#{produto.valorAtual}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produto.valorAtual}" />
 				</p:column>
 				
-				<p:column headerText="Qtd. Estoque" filterBy="#{produtoCompra.quantidadeEstoque}" filterStyle="display:none; visibility:hidden;">
-					<h:outputText value="#{produtoCompra.quantidadeEstoque}" />
+				<p:column headerText="Qtd. Estoque" filterBy="#{produto.quantidadeEstoque}" filterStyle="display:none; visibility:hidden;">
+					<h:outputText value="#{produto.quantidadeEstoque}" />
 				</p:column>
 				
 				<p:column>
-		        	<p:commandButton action="#{produtoCompraController.editaProdutoCompra(produtoCompra)}" id="editar" icon="fa fa-fw fa-edit" title="Editar Produto Compra" />
-					<p:commandButton update="tabelaProdutosCompra" action="#{produtoCompraController.removeProdutoCompra(produtoCompra)}" id="excluir" icon="fa fa-fw fa-remove" title="Excluir Produto Compra" />
+		        	<p:commandButton action="#{produtoController.editaProduto(produto)}" id="editar" icon="fa fa-fw fa-edit" title="Editar Produto " />
+					<p:commandButton update="tabelaProdutos" action="#{produtoController.removeProduto(produto)}" id="excluir" icon="fa fa-fw fa-remove" title="Excluir Produto " />
 				</p:column>
 		    </p:dataTable>
 			<br/>
-			<p:commandButton id="novo" value="Adicionar Produto Compra" action="#{produtoCompraController.novo()}" ajax="false" />
+			<p:commandButton id="novo" value="Adicionar Produto " action="#{produtoController.novo()}" ajax="false" />
 		</h:form>
 	</div>	
 </h:body>

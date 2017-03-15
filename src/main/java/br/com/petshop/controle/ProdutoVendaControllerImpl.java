@@ -52,7 +52,7 @@ public class ProdutoVendaControllerImpl implements ProdutoVendaController {
 
 	@Override
 	public String grava() {
-		if(this.produtoVenda.getIdProduto() != 0){
+		if(this.produtoVenda.getIdProdutoVenda() != 0){
 			produtoVendaDao.altera(this.produtoVenda);
 		}else{
 			produtoVendaDao.inclui(this.produtoVenda);
@@ -60,7 +60,7 @@ public class ProdutoVendaControllerImpl implements ProdutoVendaController {
 		
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro gravado com sucesso!"));
 		
-		this.produtoVenda = produtoVendaDao.buscaPorId(this.produtoVenda.getIdProduto());
+		this.produtoVenda = produtoVendaDao.buscaPorId(this.produtoVenda.getIdProdutoVenda());
 		
 		return editaProdutoVenda(produtoVenda);
 	}

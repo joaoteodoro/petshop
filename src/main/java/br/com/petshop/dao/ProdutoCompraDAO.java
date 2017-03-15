@@ -8,6 +8,6 @@ public interface ProdutoCompraDAO {
     public List<ProdutoCompra> listaProdutosCompra();
     public void altera(ProdutoCompra pc);
     public void inclui(ProdutoCompra pc);
-    public ProdutoCompra buscaPorId(int idProduto);
+    public ProdutoCompra buscaPorId(Long idProduto);
     public void remove(ProdutoCompra pc);
 }

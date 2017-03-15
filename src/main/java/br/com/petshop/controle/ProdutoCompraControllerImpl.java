@@ -1,7 +1,9 @@
 package br.com.petshop.controle;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -9,10 +11,10 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.petshop.dao.ProdutoCompraDAO;
-import br.com.petshop.modelo.Estado;
 import br.com.petshop.modelo.ProdutoCompra;
 import br.com.petshop.modelo.TipoUnidade;
 
@@ -53,10 +55,18 @@ public class ProdutoCompraControllerImpl implements ProdutoCompraController {
 		return "produtosCompra";
 	}
 	
+	public void escolheProdutoCompra() {
+        Map<String,Object> options = new HashMap<String, Object>();
+        options.put("resizable", false);
+        options.put("draggable", false);
+        options.put("modal", true);
+        RequestContext.getCurrentInstance().openDialog("selecionarProdutoCompra", options, null);
+    }
+	
 
 	@Override
 	public String grava() {
-		if(this.produtoCompra.getIdProduto() != 0){
+		if(this.produtoCompra.getIdProdutoCompra() != 0){
 			produtoCompraDao.altera(this.produtoCompra);
 		}else{
 			produtoCompraDao.inclui(this.produtoCompra);
@@ -64,7 +74,7 @@ public class ProdutoCompraControllerImpl implements ProdutoCompraController {
 		
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro gravado com sucesso!"));
 		
-		this.produtoCompra = produtoCompraDao.buscaPorId(this.produtoCompra.getIdProduto());
+		this.produtoCompra = produtoCompraDao.buscaPorId(this.produtoCompra.getIdProdutoCompra());
 		
 		return editaProdutoCompra(produtoCompra);
 	}

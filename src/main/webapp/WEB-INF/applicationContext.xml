@@ -25,6 +25,13 @@
 		<property name="password" value="" />
 	</bean>
 	
+	<bean id="produtoDao" 
+		class="br.com.petshop.dao.ProdutoDAOImpl"/>
+	<bean id="produtoController"
+		class="br.com.petshop.controle.ProdutoControllerImpl">
+		<property name="produtoDao" ref="produtoDao"></property>
+	</bean>
+	
 	<bean id="produtoCompraDao" 
 		class="br.com.petshop.dao.ProdutoCompraDAOImpl"/>
 	<bean id="produtoCompraController"

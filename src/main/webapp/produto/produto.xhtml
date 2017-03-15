@@ -9,7 +9,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-	<title>Produto Compra</title>
+	<title>Produto</title>
 	<f:facet name="first">
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
     </f:facet>
@@ -17,13 +17,13 @@
 <h:body>
 	<ui:include src="/includes.xhtml" />
 	<div class="container-fluid div-principal-fundo">
-		<h3 class="text-center"><b>Cadastro de Produto de Compra</b></h3>
+		<h3 class="text-center"><b>Cadastro de Produto</b></h3>
 		<h:form>
 		    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 		</h:form>
 		<h:form>
-			<h:commandButton rendered="#{produtoCompraController.produtoCompra.idProduto != 0}" id="excluir" action="#{produtoCompraController.removeProdutoCompra(produtoCompraController.produtoCompra)}" 
-				value="Excluir Produto Compra" ajax="false"/>
+			<h:commandButton rendered="#{produtoController.produto.idProduto != 0}" id="excluir" action="#{produtoController.removeProduto(produtoController.produto)}" 
+				value="Excluir Produto" ajax="false"/>
 		</h:form>
 		<p:separator />
 		
@@ -31,33 +31,33 @@
 			<div class="row">
 				<div class="col-md-6">
 					<p:outputLabel for="nome" value="Nome:"  />
-					<p:inputText styleClass="form-control" id="nome" value="#{produtoCompraController.produtoCompra.nome}" size="50" required="true" 
+					<p:inputText styleClass="form-control" id="nome" value="#{produtoController.produto.nome}" size="50" required="true" 
 						requiredMessage="Nome é obrigatório!"/>
 				</div>
 				<div class="col-md-6">
 					<p:outputLabel for="descricao" value="Descrição:"/>
-					<p:inputText id="descricao" value="#{produtoCompraController.produtoCompra.descricao}" size="60" styleClass="form-control"/>
+					<p:inputText id="descricao" value="#{produtoController.produto.descricao}" size="60" styleClass="form-control"/>
 				</div>
 			</div>
 			<br/>
 			
 			<div class="row">
 				<div class="col-md-3">
-					<p:outputLabel for="valor" value="Valor:"  />
-					<p:inputText maxlength="15" size="20" id="valor" required="true" value="#{produtoCompraController.produtoCompra.valor}" styleClass="form-control">
+					<p:outputLabel for="valorAtual" value="Valor Atual:"  />
+					<p:inputText maxlength="15" size="20" id="valorAtual" required="true" value="#{produtoController.produto.valorAtual}" styleClass="form-control">
 						<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 					</p:inputText>
 				</div>
 				<div class="col-md-3">
-					<p:outputLabel for="quantidade" value="Quantidade:"/>
-					<p:inputText id="quantidade" value="#{produtoCompraController.produtoCompra.quantidade}" size="60" styleClass="form-control"/>
+					<p:outputLabel for="quantidadeUnidade" value="Quantidade Unidade:"/>
+					<p:inputText id="quantidadeUnidade" value="#{produtoController.produto.quantidadeUnidade}" size="60" styleClass="form-control"/>
 				</div>
 				<div class="col-md-3">
-					<p:outputLabel for="tipoUnidade" value="Unidade"/><br/>
-					<p:selectOneMenu id="tipoUnidade"  value="#{produtoCompraController.produtoCompra.tipoUnidadeCompra}" 
-						required="true" requiredMessage="Unidade é obrigatório!">  
+					<p:outputLabel for="tipoUnidade" value="Tipo Unidade"/><br/>
+					<p:selectOneMenu id="tipoUnidade"  value="#{produtoController.produto.tipoUnidade}" 
+						required="true" requiredMessage="Tipo Unidade é obrigatório!">
 			            <f:selectItem itemLabel="Selecione..." itemValue=""/>  
-			            <f:selectItems value="#{produtoCompraController.selectItensTipoUnidade()}"/>  
+			            <f:selectItems value="#{produtoController.selectItensTipoUnidade()}"/>  
 			        </p:selectOneMenu>
 				</div>
 			</div>
@@ -66,19 +66,60 @@
 			<div class="row">
 				<div class="col-md-3">
 					<p:outputLabel for="quantidadeEstoque" value="Qtd. Estoque:"/>
-					<p:inputText id="quantidadeEstoque" value="#{produtoCompraController.produtoCompra.quantidadeEstoque}" size="60" styleClass="form-control"/>
+					<p:inputText id="quantidadeEstoque" value="#{produtoController.produto.quantidadeEstoque}" size="60" styleClass="form-control"/>
+				</div>
+				<div class="col-md-3">
+					<p:outputLabel for="tipoProduto" value="Tipo Produto"/><br/>
+					<p:selectOneMenu onchange="exibeEscondeProdutoCompra()" id="tipoProduto"  value="#{produtoController.produto.tipoProduto}" 
+						required="true" requiredMessage="Tipo Produto é obrigatório!">
+			            <f:selectItem itemLabel="Selecione..." itemValue=""/>
+			            <f:selectItems value="#{produtoController.selectItensTipoProduto()}"/>  
+			        </p:selectOneMenu>
+				</div>
+				<div id="blocoProdutoCompra" class="col-md-3">
+				    <p:commandButton value="Produto Compra" icon="ui-icon-extlink" actionListener="#{produtoController.escolheProdutoCompra}"/>
+				    <p:commandButton update="nomeProdutoCompra,descricaoProdutoCompra"  action="#{produtoController.aoSelecionarProdutoCompra()}" id="exibeProdutoCompra" 
+				 		style="display: none;" />
+				 	
+			 		<table id="tabelaProdutoCompra" class="table table-striped table-bordered"
+						cellspacing="0" width="100%">
+			 			<thead>
+			 				<tr>
+			 					<th>Nome</th>
+			 					<th>Descrição</th>
+			 				</tr>
+			 			</thead>
+			 			<tbody>
+			 				<tr>
+			 					<td><h:outputText id="nomeProdutoCompra" value="#{produtoController.produto.produtoMatriz.nome}" /></td>
+			 					<td><h:outputText id="descricaoProdutoCompra" value="#{produtoController.produto.produtoMatriz.descricao}" /></td>
+			 				</tr>
+			 			</tbody>
+			 		</table>
 				</div>
 			</div>
 			<br/>
-			
-			
-			
-			
-			<p:commandButton value="Gravar" id="gravar" action="#{produtoCompraController.grava}" ajax="false" />
+			<p:commandButton value="Gravar" id="gravar" action="#{produtoController.grava}" ajax="false" />
 		</h:form>
 	</div>
 	<script>
-		$("input[id*='valor']").maskMoney({thousands:'.', decimal:','});
+		$(document).ready(function(){
+			$("input[id*='valorAtual']").maskMoney({thousands:'.', decimal:','});
+			exibeEscondeProdutoCompra();
+		});
+		
+		function exibeEscondeProdutoCompra(){
+			if($("select[id*=tipoProduto]").val() == 'venda'){
+				$("#blocoProdutoCompra").show();
+			}else{
+				$("#blocoProdutoCompra").hide();
+			}
+		}
+	
+		function enviarProdutoCompra(){
+			debugger;
+			$("button[id*='exibeProdutoCompra']").click();
+		}
 	</script>
 </h:body>
 </html>

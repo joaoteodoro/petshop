@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,8 +49,10 @@ public class Produto implements Serializable{
 	
 	private Long quantidadeUnidade;
 	
+	@Enumerated(EnumType.STRING)
 	private TipoProduto tipoProduto;
 	
+	@Enumerated(EnumType.STRING)
 	private TipoUnidade tipoUnidade;
 	
 	@ManyToOne

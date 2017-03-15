@@ -3,21 +3,24 @@ package br.com.petshop.modelo;
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "idProduto")
+//@PrimaryKeyJoinColumn(name = "idProduto")
 @Table(name = "produtoVenda")
 @ManagedBean(name = "produtoVenda")
-public class ProdutoVenda extends Produto{
+public class ProdutoVenda /*extends Produto*/{
 
-//	@Id
-//	@Column(name = "idProdutoVenda")
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private int idProdutoVenda;
+	@Id
+	@Column(name = "idProdutoVenda")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idProdutoVenda;
 
 	/**
 	 * 
@@ -28,11 +31,8 @@ public class ProdutoVenda extends Produto{
 	
 	private TipoUnidade tipoUnidadeVenda;
 
-	/*@ManyToOne
-	private Produto produto;*/
-	
 	@ManyToOne
-	ProdutoCompra produtoCompra;
+	private Produto produto;
 
 	@ManyToOne
 	private Venda venda;
@@ -43,12 +43,12 @@ public class ProdutoVenda extends Produto{
 	
 	private boolean ehServico;
 
-	public boolean isServicoExecutado() {
-		return servicoExecutado;
+	public int getIdProdutoVenda() {
+		return idProdutoVenda;
 	}
 
-	public void setServicoExecutado(boolean servicoExecutado) {
-		this.servicoExecutado = servicoExecutado;
+	public void setIdProdutoVenda(int idProdutoVenda) {
+		this.idProdutoVenda = idProdutoVenda;
 	}
 
 	public int getQuantidade() {
@@ -57,6 +57,22 @@ public class ProdutoVenda extends Produto{
 
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
+	}
+
+	public TipoUnidade getTipoUnidadeVenda() {
+		return tipoUnidadeVenda;
+	}
+
+	public void setTipoUnidadeVenda(TipoUnidade tipoUnidadeVenda) {
+		this.tipoUnidadeVenda = tipoUnidadeVenda;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	public Venda getVenda() {
@@ -75,12 +91,12 @@ public class ProdutoVenda extends Produto{
 		this.dtExecucaoServico = dtExecucaoServico;
 	}
 
-	public TipoUnidade getTipoUnidadeVenda() {
-		return tipoUnidadeVenda;
+	public boolean isServicoExecutado() {
+		return servicoExecutado;
 	}
 
-	public void setTipoUnidadeVenda(TipoUnidade tipoUnidadeVenda) {
-		this.tipoUnidadeVenda = tipoUnidadeVenda;
+	public void setServicoExecutado(boolean servicoExecutado) {
+		this.servicoExecutado = servicoExecutado;
 	}
 
 	public boolean isEhServico() {
@@ -91,11 +107,5 @@ public class ProdutoVenda extends Produto{
 		this.ehServico = ehServico;
 	}
 
-	public ProdutoCompra getProdutoCompra() {
-		return produtoCompra;
-	}
-
-	public void setProdutoCompra(ProdutoCompra produtoCompra) {
-		this.produtoCompra = produtoCompra;
-	}
+	
 }

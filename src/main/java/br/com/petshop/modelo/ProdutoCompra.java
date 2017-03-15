@@ -2,17 +2,20 @@ package br.com.petshop.modelo;
 
 import java.math.BigDecimal;
 
+import javax.faces.bean.ManagedBean;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-//@Entity
+@Entity
 //@PrimaryKeyJoinColumn(name = "idProduto")
-//@Table(name = "produtoCompra")
-//@ManagedBean(name = "produtoCompra")
-public class ProdutoCompra extends Produto{
+@Table(name = "produtoCompra")
+@ManagedBean(name = "produtoCompra")
+public class ProdutoCompra{
 
 	@Id
 	@Column(name = "idProdutoCompra")

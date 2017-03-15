@@ -40,11 +40,11 @@ public class ProdutoCompraDAOImpl implements ProdutoCompraDAO{
 		entityManagerFactory.persist(pc);
 	}
 	
-	public ProdutoCompra buscaPorId(int idProduto){
+	public ProdutoCompra buscaPorId(Long idProduto){
 		return entityManagerFactory.find(ProdutoCompra.class, idProduto);
 	}
  
 	public void remove(ProdutoCompra pc){
-		entityManagerFactory.remove(entityManagerFactory.getReference(ProdutoCompra.class, pc.getIdProduto()));
+		entityManagerFactory.remove(entityManagerFactory.getReference(ProdutoCompra.class, pc.getIdProdutoCompra()));
 	}
 }
