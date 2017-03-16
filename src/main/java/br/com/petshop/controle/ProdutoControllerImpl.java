@@ -61,6 +61,7 @@ public class ProdutoControllerImpl implements ProdutoController {
 	
 
 	public String grava() {
+		validaProduto();
 		if(this.produto.getIdProduto() != 0){
 			produtoDao.altera(this.produto);
 		}else{
@@ -72,6 +73,14 @@ public class ProdutoControllerImpl implements ProdutoController {
 		this.produto = produtoDao.buscaPorId(this.produto.getIdProduto());
 		
 		return editaProduto(produto);
+	}
+	
+	private void validaProduto(){
+		if(this.produto.getTipoProduto().equals(TipoProduto.compra)){
+			this.produto.setProdutoMatriz(null);
+		}
+		
+		
 	}
 	
 	public List<SelectItem> selectItensTipoUnidade(){
