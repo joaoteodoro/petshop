@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.petshop.dao.AnimalDAO;
 import br.com.petshop.dao.ClienteDAO;
+import br.com.petshop.dao.ClienteDAOImpl;
 import br.com.petshop.dao.EnderecoDAO;
 import br.com.petshop.dao.EstadoDAO;
 import br.com.petshop.dao.TelefoneDAO;
@@ -29,7 +30,7 @@ import br.com.petshop.utils.StringUtils;
 public class ClienteControllerImpl implements ClienteController {
 
 	@Autowired
-	ClienteDAO clienteDao;
+	ClienteDAOImpl clienteDao;
 	
 	@Autowired
 	EstadoDAO estadoDao;
@@ -52,7 +53,7 @@ public class ClienteControllerImpl implements ClienteController {
 	}
 
 	public List<Cliente> listaClientes() {
-		return this.clienteDao.listaClientes();
+		return this.clienteDao.getList();
 	}
 	
 	public void novoAnimal(){
@@ -80,7 +81,7 @@ public class ClienteControllerImpl implements ClienteController {
 	}
 	
 	public String removeCliente(Cliente c){
-		clienteDao.remove(c);
+		clienteDao.remover((long)c.getIdPessoa());;
 		removerEndereco(c.getEndereco());
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro excluído com sucesso!"));
 		return "clientes";
@@ -101,9 +102,9 @@ public class ClienteControllerImpl implements ClienteController {
 		}
 		cliente.setCpf(StringUtils.somenteNumeros(cliente.getCpf()));
 		if(this.cliente.getIdPessoa() != 0){
-			clienteDao.altera(this.cliente);
+			clienteDao.atualizar(this.cliente);
 		}else{
-			clienteDao.inclui(this.cliente);
+			clienteDao.salvar(this.cliente);
 		}
 		if(ehNovoRegistro){
 			validaTelefones();
@@ -112,7 +113,7 @@ public class ClienteControllerImpl implements ClienteController {
 		
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro gravado com sucesso!"));
 		
-		this.cliente = clienteDao.buscaPorId(this.cliente.getIdPessoa());
+		this.cliente = clienteDao.encontrar((long)this.cliente.getIdPessoa());
 		
 		return editaCliente(cliente);
 	}
@@ -175,11 +176,11 @@ public class ClienteControllerImpl implements ClienteController {
 //		return editaCliente(cliente);
 	}
 	
-	public ClienteDAO getClienteDao() {
+	public ClienteDAOImpl getClienteDao() {
 		return clienteDao;
 	}
 
-	public void setClienteDao(ClienteDAO clienteDao) {
+	public void setClienteDao(ClienteDAOImpl clienteDao) {
 		this.clienteDao = clienteDao;
 	}
 

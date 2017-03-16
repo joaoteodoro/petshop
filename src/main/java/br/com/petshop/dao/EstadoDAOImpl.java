@@ -9,15 +9,20 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.petshop.modelo.Cliente;
 import br.com.petshop.modelo.Endereco;
 import br.com.petshop.modelo.Estado;
 
 @Repository
 @Service
 @Transactional
-public class EstadoDAOImpl implements EstadoDAO{
+public class EstadoDAOImpl extends GenericDAO<Estado, Long>{
 	
-	@PersistenceContext
+	public EstadoDAOImpl(){
+		super(Estado.class);
+	}
+	
+	/*@PersistenceContext
 	EntityManager entityManagerFactory;
 	
 	//private static final Logger logger = LoggerFactory.getLogger(FornecedorDAOImpl.class);
@@ -39,6 +44,6 @@ public class EstadoDAOImpl implements EstadoDAO{
 	
 	public void inclui(Estado e) {
 		entityManagerFactory.persist(e);
-	}
+	}*/
  
 }

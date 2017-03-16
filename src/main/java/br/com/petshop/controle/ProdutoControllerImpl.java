@@ -54,14 +54,29 @@ public class ProdutoControllerImpl implements ProdutoController {
 	}
 	
 	public String removeProduto(Produto p){
-		produtoDao.remove(p);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro excluído com sucesso!"));
+		try {
+			produtoDao.remove(p);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Registro excluído com sucesso!"));
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Produto não pode ser removido pois está vinculado a outro produto!"));
+		}
 		return "produtos";
 	}
+	
+	/*private void removerEstoqueProdutoCompra(){
+		Produto produtoCompra = produtoDao.buscaPorId(this.produto.getProdutoMatriz().getIdProduto());
+		if(produto.getTipoUnidade().equals(produtoCompra.getTipoUnidade())){
+			produtoCompra.setQuantidadeEstoque(produtoCompra.getQuantidadeEstoque() - produto.get);
+		}
+	}*/
 	
 
 	public String grava() {
 		validaProduto();
+		/*if(this.produto.getTipoProduto().equals(TipoProduto.venda)){
+			removerEstoqueProdutoCompra();
+		}*/
 		if(this.produto.getIdProduto() != 0){
 			produtoDao.altera(this.produto);
 		}else{
@@ -79,8 +94,6 @@ public class ProdutoControllerImpl implements ProdutoController {
 		if(this.produto.getTipoProduto().equals(TipoProduto.compra)){
 			this.produto.setProdutoMatriz(null);
 		}
-		
-		
 	}
 	
 	public List<SelectItem> selectItensTipoUnidade(){

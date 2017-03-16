@@ -15,18 +15,15 @@ import br.com.petshop.modelo.Telefone;
 @Repository
 @Service
 @Transactional
-public class FornecedorDAOImpl implements FornecedorDAO{
-	
-	@PersistenceContext
-	EntityManager entityManagerFactory;
+public class FornecedorDAOImpl extends GenericDAO<Fornecedor, Long>{
 	
 	//private static final Logger logger = LoggerFactory.getLogger(FornecedorDAOImpl.class);
 	 
-	public void setEntityManagerFactory(EntityManager entityManagerFactory){
-		this.entityManagerFactory = entityManagerFactory;
+	public FornecedorDAOImpl(){
+		super(Fornecedor.class);
 	}
 
-	@Override
+	/*@Override
 	public List<Fornecedor> listaFornecedores() {
 		@SuppressWarnings("unchecked")
 		List<Fornecedor> fornecedores =  entityManagerFactory.createQuery("from Fornecedor").getResultList();
@@ -47,5 +44,5 @@ public class FornecedorDAOImpl implements FornecedorDAO{
  
 	public void remove(Fornecedor f){
 		entityManagerFactory.remove(entityManagerFactory.getReference(Fornecedor.class, f.getIdPessoa()));
-	}
+	}*/
 }

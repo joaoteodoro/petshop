@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.petshop.dao.EnderecoDAO;
 import br.com.petshop.dao.EstadoDAO;
 import br.com.petshop.dao.FornecedorDAO;
+import br.com.petshop.dao.FornecedorDAOImpl;
 import br.com.petshop.dao.TelefoneDAO;
 import br.com.petshop.modelo.Endereco;
 import br.com.petshop.modelo.Estado;
@@ -25,7 +26,7 @@ import br.com.petshop.utils.StringUtils;
 public class FornecedorControllerImpl implements FornecedorController {
 
 	@Autowired
-	FornecedorDAO fornecedorDao;
+	FornecedorDAOImpl fornecedorDao;
 	
 	@Autowired
 	TelefoneDAO telefoneDao;
@@ -45,7 +46,8 @@ public class FornecedorControllerImpl implements FornecedorController {
 	}
 
 	public List<Fornecedor> listaFornecedores() {
-		return this.fornecedorDao.listaFornecedores();
+		//return this.fornecedorDao.listaFornecedores();
+		return this.fornecedorDao.getList();
 	}
 	
 	public String novo() {
@@ -62,7 +64,9 @@ public class FornecedorControllerImpl implements FornecedorController {
 	
 	public String removeFornecedor(Fornecedor f){
 		removerTelefones(f.getTelefones());
-		fornecedorDao.remove(f);
+		//fornecedorDao.remove(f);
+		fornecedorDao.remover((long) f.getIdPessoa());
+		//fornecedorDao.remove(Fornecedor.class, (long) f.getIdPessoa());
 		removerEndereco(f.getEndereco());
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro excluído com sucesso!"));
 		return "fornecedores";
@@ -90,9 +94,11 @@ public class FornecedorControllerImpl implements FornecedorController {
 		}
 		fornecedor.setCnpj(StringUtils.somenteNumeros(fornecedor.getCnpj()));
 		if(this.fornecedor.getIdPessoa() != 0){
-			fornecedorDao.altera(this.fornecedor);
+			fornecedorDao.atualizar(this.fornecedor);
+			//fornecedorDao.altera(this.fornecedor);
 		}else{
-			fornecedorDao.inclui(this.fornecedor);
+			fornecedorDao.salvar(this.fornecedor);
+			//fornecedorDao.inclui(this.fornecedor);
 		}
 		if(ehNovoRegistro){
 			validaTelefones();
@@ -100,7 +106,8 @@ public class FornecedorControllerImpl implements FornecedorController {
 		
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro gravado com sucesso!"));
 		
-		this.fornecedor = fornecedorDao.buscaPorId(this.fornecedor.getIdPessoa());
+		//this.fornecedor = fornecedorDao.buscaPorId(this.fornecedor.getIdPessoa());
+		this.fornecedor = (Fornecedor) fornecedorDao.encontrar((long)this.fornecedor.getIdPessoa());
 		return editaFornecedor(fornecedor);
 	}
 	
@@ -154,7 +161,7 @@ public class FornecedorControllerImpl implements FornecedorController {
 		return itens;
 	}
 
-	public void setFornecedorDao(FornecedorDAO fornecedorDao) {
+	public void setFornecedorDao(FornecedorDAOImpl fornecedorDao) {
 		this.fornecedorDao = fornecedorDao;
 	}
 	
@@ -166,7 +173,7 @@ public class FornecedorControllerImpl implements FornecedorController {
 		this.fornecedor = fornecedor;
 	}
 
-	public FornecedorDAO getFornecedorDao() {
+	public FornecedorDAOImpl getFornecedorDao() {
 		return fornecedorDao;
 	}
 	

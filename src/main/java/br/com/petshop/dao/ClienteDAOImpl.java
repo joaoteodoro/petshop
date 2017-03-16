@@ -1,10 +1,5 @@
 package br.com.petshop.dao;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +9,13 @@ import br.com.petshop.modelo.Cliente;
 @Repository
 @Service
 @Transactional
-public class ClienteDAOImpl implements ClienteDAO{
+public class ClienteDAOImpl extends GenericDAO<Cliente, Long>{
 	
-	@PersistenceContext
+	public ClienteDAOImpl(){
+		super(Cliente.class);
+	}
+	
+	/*@PersistenceContext
 	EntityManager entityManagerFactory;
 	
 	//private static final Logger logger = LoggerFactory.getLogger(FornecedorDAOImpl.class);
@@ -46,5 +45,5 @@ public class ClienteDAOImpl implements ClienteDAO{
  
 	public void remove(Cliente c){
 		entityManagerFactory.remove(entityManagerFactory.getReference(Cliente.class, c.getIdPessoa()));
-	}
+	}*/
 }

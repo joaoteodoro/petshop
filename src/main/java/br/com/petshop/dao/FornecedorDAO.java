@@ -4,10 +4,10 @@ import java.util.List;
 
 import br.com.petshop.modelo.Fornecedor;
  
-public interface FornecedorDAO {
-    public List<Fornecedor> listaFornecedores();
-    public void altera(Fornecedor f);
-    public void inclui(Fornecedor f);
-    public Fornecedor buscaPorId(int idPessoa);
-    public void remove(Fornecedor f);
+public interface FornecedorDAO{
+    //public List<Fornecedor> listaFornecedores();
+    //public void altera(Fornecedor f);
+    //public void inclui(Fornecedor f);
+    //public Fornecedor buscaPorId(int idPessoa);
+    //public void remove(Fornecedor f);
 }
