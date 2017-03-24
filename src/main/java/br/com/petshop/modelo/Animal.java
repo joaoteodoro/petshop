@@ -19,7 +19,7 @@ public class Animal {
 	@Id
 	@Column(name = "idAnimal")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idAnimal;
+	private Long idAnimal;
 
 	@ManyToOne
 	private Cliente dono;
@@ -37,11 +37,11 @@ public class Animal {
 		this.raca = raca;
 	}
 
-	public int getIdAnimal() {
+	public Long getIdAnimal() {
 		return idAnimal;
 	}
 
-	public void setIdAnimal(int idAnimal) {
+	public void setIdAnimal(Long idAnimal) {
 		this.idAnimal = idAnimal;
 	}
 

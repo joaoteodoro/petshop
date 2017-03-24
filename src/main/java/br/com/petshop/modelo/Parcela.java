@@ -20,19 +20,20 @@ public class Parcela {
 	@Id
 	@Column(name = "idParcela")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idParcela;
+	private Long idParcela;
 	
+	private int numeroParcela;
 	private Date dtVencimento;
 	private float valor;
 	
 	@ManyToOne
 	private Compra compra;
 
-	public int getIdParcela() {
+	public Long getIdParcela() {
 		return idParcela;
 	}
 
-	public void setIdParcela(int idParcela) {
+	public void setIdParcela(Long idParcela) {
 		this.idParcela = idParcela;
 	}
 
@@ -58,6 +59,14 @@ public class Parcela {
 
 	public void setCompra(Compra compra) {
 		this.compra = compra;
+	}
+
+	public int getNumeroParcela() {
+		return numeroParcela;
+	}
+
+	public void setNumeroParcela(int numeroParcela) {
+		this.numeroParcela = numeroParcela;
 	}
 	
 

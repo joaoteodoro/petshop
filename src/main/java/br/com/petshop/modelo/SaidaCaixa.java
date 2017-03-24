@@ -18,17 +18,17 @@ public class SaidaCaixa {
 	@Id
 	@Column(name = "idSaidaCaixa")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idSaidaCaixa;
+	private Long idSaidaCaixa;
 
 	private Date dtSaida;
 	private String descricao;
 	private float valor;
 
-	public int getIdSaidaCaixa() {
+	public Long getIdSaidaCaixa() {
 		return idSaidaCaixa;
 	}
 
-	public void setIdSaidaCaixa(int idSaidaCaixa) {
+	public void setIdSaidaCaixa(Long idSaidaCaixa) {
 		this.idSaidaCaixa = idSaidaCaixa;
 	}
 

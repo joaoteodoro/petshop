@@ -34,9 +34,9 @@ public class EstadoConverter implements Converter {
 				List<Estado> estadosAux = estadoDao.listaEstados();
 				for (Estado estado : estadosAux) {
 					if(estado.getId() >= 0 && estado.getId() <= estados.size()){
-						estados.add(estado.getId(), estado);
+						estados.add(estado.getId().intValue(), estado);
 			        }else{
-			        	int insertNulls = estado.getId() - estados.size();
+			        	int insertNulls = estado.getId().intValue() - estados.size();
 				        for(int i = 0; i < insertNulls; i++){
 				        	estados.add(null);
 				        }

@@ -31,7 +31,7 @@ public class Pessoa implements Serializable{
 	@Id
 	@Column(name = "idPessoa")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idPessoa;
+	private Long idPessoa;
 
 	private String nome;
 	private Date dtCadastro;
@@ -39,11 +39,11 @@ public class Pessoa implements Serializable{
 	@OneToMany(mappedBy = "pessoa", cascade = { CascadeType.ALL/*, CascadeType.REMOVE */}, fetch=FetchType.EAGER, orphanRemoval=true)
 	private List<Telefone> telefones;
 
-	public int getIdPessoa() {
+	public Long getIdPessoa() {
 		return idPessoa;
 	}
 
-	public void setIdPessoa(int idPessoa) {
+	public void setIdPessoa(Long idPessoa) {
 		this.idPessoa = idPessoa;
 	}
 

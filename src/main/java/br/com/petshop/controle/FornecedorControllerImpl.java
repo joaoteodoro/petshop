@@ -11,11 +11,10 @@ import javax.faces.model.SelectItem;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.com.petshop.dao.EnderecoDAO;
-import br.com.petshop.dao.EstadoDAO;
-import br.com.petshop.dao.FornecedorDAO;
+import br.com.petshop.dao.EnderecoDAOImpl;
+import br.com.petshop.dao.EstadoDAOImpl;
 import br.com.petshop.dao.FornecedorDAOImpl;
-import br.com.petshop.dao.TelefoneDAO;
+import br.com.petshop.dao.TelefoneDAOImpl;
 import br.com.petshop.modelo.Endereco;
 import br.com.petshop.modelo.Estado;
 import br.com.petshop.modelo.Fornecedor;
@@ -29,13 +28,13 @@ public class FornecedorControllerImpl implements FornecedorController {
 	FornecedorDAOImpl fornecedorDao;
 	
 	@Autowired
-	TelefoneDAO telefoneDao;
+	TelefoneDAOImpl telefoneDao;
 	
 	@Autowired
-	EnderecoDAO enderecoDao;
+	EnderecoDAOImpl enderecoDao;
 	
 	@Autowired
-	EstadoDAO estadoDao;	
+	EstadoDAOImpl estadoDao;	
 	
 	private Fornecedor fornecedor;
 	
@@ -65,8 +64,8 @@ public class FornecedorControllerImpl implements FornecedorController {
 	public String removeFornecedor(Fornecedor f){
 		removerTelefones(f.getTelefones());
 		//fornecedorDao.remove(f);
-		fornecedorDao.remover((long) f.getIdPessoa());
-		//fornecedorDao.remove(Fornecedor.class, (long) f.getIdPessoa());
+		fornecedorDao.remover( f.getIdPessoa());
+		//fornecedorDao.remove(Fornecedor.class,  f.getIdPessoa());
 		removerEndereco(f.getEndereco());
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro excluído com sucesso!"));
 		return "fornecedores";
@@ -74,26 +73,26 @@ public class FornecedorControllerImpl implements FornecedorController {
 	
 	public void removerTelefones(List<Telefone> telefones){
 		for (Telefone telefone : telefones) {
-			if(telefone != null && telefone.getId() != 0){
-				telefoneDao.remove(telefone);
+			if(telefone != null && telefone.getId() != null){
+				telefoneDao.remover(telefone.getId());
 			}
 		}
 	}
 	
 	public void removerEndereco(Endereco e){
-		enderecoDao.remove(e);
+		enderecoDao.remover(e.getId());
 	}
 
 	@Override
 	public String grava() {
 		boolean ehNovoRegistro = true;
 		validaEndereco();
-		if(this.fornecedor.getIdPessoa() != 0){
+		if(this.fornecedor.getIdPessoa() != null){
 			ehNovoRegistro = false;
 			validaTelefones();
 		}
 		fornecedor.setCnpj(StringUtils.somenteNumeros(fornecedor.getCnpj()));
-		if(this.fornecedor.getIdPessoa() != 0){
+		if(this.fornecedor.getIdPessoa() != null){
 			fornecedorDao.atualizar(this.fornecedor);
 			//fornecedorDao.altera(this.fornecedor);
 		}else{
@@ -107,7 +106,7 @@ public class FornecedorControllerImpl implements FornecedorController {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro gravado com sucesso!"));
 		
 		//this.fornecedor = fornecedorDao.buscaPorId(this.fornecedor.getIdPessoa());
-		this.fornecedor = (Fornecedor) fornecedorDao.encontrar((long)this.fornecedor.getIdPessoa());
+		this.fornecedor = (Fornecedor) fornecedorDao.encontrar(this.fornecedor.getIdPessoa());
 		return editaFornecedor(fornecedor);
 	}
 	
@@ -123,9 +122,9 @@ public class FornecedorControllerImpl implements FornecedorController {
 		//excluir registro em branco
 		Telefone segundoTelefone = fornecedor.getTelefones().get(1);
 		if(segundoTelefone.getNumero() == null || "".equals(segundoTelefone.getNumero())){
-			if(segundoTelefone.getId() != 0){
+			if(segundoTelefone.getId() != null){
 				segundoTelefone.setPessoa(null);
-				telefoneDao.remove(segundoTelefone);
+				telefoneDao.remover(segundoTelefone.getId());
 			}
 			this.fornecedor.getTelefones().set(1, null);
 		}
@@ -135,10 +134,10 @@ public class FornecedorControllerImpl implements FornecedorController {
 			if(telefone!= null ){
 				telefone.setNumero(StringUtils.somenteNumeros(telefone.getNumero()));
 				telefone.setPessoa(fornecedor);
-				if(telefone.getId() != 0){
-					telefoneDao.altera(telefone);
+				if(telefone.getId() != null){
+					telefoneDao.atualizar(telefone);
 				}else{
-					telefoneDao.inclui(telefone);
+					telefoneDao.salvar(telefone);
 				}
 			}
 		}
@@ -146,16 +145,16 @@ public class FornecedorControllerImpl implements FornecedorController {
 	
 	private void validaEndereco(){
 		fornecedor.getEndereco().setCep(StringUtils.somenteNumeros(fornecedor.getEndereco().getCep()));
-		if(this.fornecedor.getEndereco().getId() != 0){
-			enderecoDao.altera(fornecedor.getEndereco());
+		if(this.fornecedor.getEndereco().getId() != null){
+			enderecoDao.atualizar(fornecedor.getEndereco());
 		}else{
-			enderecoDao.inclui(fornecedor.getEndereco());
+			enderecoDao.salvar(fornecedor.getEndereco());
 		}
 	}
 	
 	public List<SelectItem> selectItensEstados(){
 		List<SelectItem> itens = new ArrayList<>();
-		for (Estado estado : estadoDao.listaEstados()) {
+		for (Estado estado : estadoDao.getList()) {
 			itens.add(new SelectItem(estado.getId(), estado.getNome()));
 		} 
 		return itens;
@@ -176,28 +175,28 @@ public class FornecedorControllerImpl implements FornecedorController {
 	public FornecedorDAOImpl getFornecedorDao() {
 		return fornecedorDao;
 	}
-	
-	public TelefoneDAO getTelefoneDao() {
+
+	public TelefoneDAOImpl getTelefoneDao() {
 		return telefoneDao;
 	}
 
-	public void setTelefoneDao(TelefoneDAO telefoneDao) {
+	public void setTelefoneDao(TelefoneDAOImpl telefoneDao) {
 		this.telefoneDao = telefoneDao;
 	}
 
-	public EnderecoDAO getEnderecoDao() {
+	public EnderecoDAOImpl getEnderecoDao() {
 		return enderecoDao;
 	}
 
-	public void setEnderecoDao(EnderecoDAO enderecoDao) {
+	public void setEnderecoDao(EnderecoDAOImpl enderecoDao) {
 		this.enderecoDao = enderecoDao;
 	}
 
-	public EstadoDAO getEstadoDao() {
+	public EstadoDAOImpl getEstadoDao() {
 		return estadoDao;
 	}
 
-	public void setEstadoDao(EstadoDAO estadoDao) {
+	public void setEstadoDao(EstadoDAOImpl estadoDao) {
 		this.estadoDao = estadoDao;
 	}
 

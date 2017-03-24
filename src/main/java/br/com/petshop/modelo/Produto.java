@@ -31,7 +31,7 @@ public class Produto implements Serializable{
 	@Id
 	@Column(name = "idProduto")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idProduto;
+	private Long idProduto;
 
 	
 	private String nome;
@@ -65,11 +65,11 @@ public class Produto implements Serializable{
 	@OneToMany(mappedBy = "produto", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<ProdutoCompra> produtoCompra;*/
 
-	public int getIdProduto() {
+	public Long getIdProduto() {
 		return idProduto;
 	}
 
-	public void setIdProduto(int idProduto) {
+	public void setIdProduto(Long idProduto) {
 		this.idProduto = idProduto;
 	}
 

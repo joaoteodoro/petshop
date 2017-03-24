@@ -12,10 +12,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.petshop.dao.ProdutoDAO;
+import br.com.petshop.dao.ProdutoDAOImpl;
 import br.com.petshop.modelo.Produto;
 import br.com.petshop.modelo.TipoProduto;
 import br.com.petshop.modelo.TipoUnidade;
@@ -25,7 +25,7 @@ import br.com.petshop.modelo.TipoUnidade;
 public class ProdutoControllerImpl implements ProdutoController {
 
 	@Autowired
-	ProdutoDAO produtoDao;
+	ProdutoDAOImpl produtoDao;
 	
 	private Produto produto;
 	
@@ -38,7 +38,7 @@ public class ProdutoControllerImpl implements ProdutoController {
 	}
 
 	public List<Produto> listaProdutos() {
-		return this.produtoDao.listaProdutos();
+		return this.produtoDao.getList();
 	}
 	
 	
@@ -55,7 +55,7 @@ public class ProdutoControllerImpl implements ProdutoController {
 	
 	public String removeProduto(Produto p){
 		try {
-			produtoDao.remove(p);
+			produtoDao.remover(p.getIdProduto());
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Registro excluído com sucesso!"));
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null,
@@ -77,15 +77,15 @@ public class ProdutoControllerImpl implements ProdutoController {
 		/*if(this.produto.getTipoProduto().equals(TipoProduto.venda)){
 			removerEstoqueProdutoCompra();
 		}*/
-		if(this.produto.getIdProduto() != 0){
-			produtoDao.altera(this.produto);
+		if(this.produto.getIdProduto() != null){
+			produtoDao.atualizar(this.produto);
 		}else{
-			produtoDao.inclui(this.produto);
+			produtoDao.salvar(this.produto);
 		}
 		
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro gravado com sucesso!"));
 		
-		this.produto = produtoDao.buscaPorId(this.produto.getIdProduto());
+		this.produto = produtoDao.encontrar(this.produto.getIdProduto());
 		
 		return editaProduto(produto);
 	}
@@ -120,6 +120,14 @@ public class ProdutoControllerImpl implements ProdutoController {
         RequestContext.getCurrentInstance().openDialog("selecionarProdutoCompra", options, null);
     }
 	
+	public void abreTelaSelecaoProduto(){
+		Map<String,Object> options = new HashMap<String, Object>();
+        options.put("resizable", false);
+        options.put("draggable", false);
+        options.put("modal", true);
+        RequestContext.getCurrentInstance().openDialog("selecionarProdutoCompra", options, null);
+	}
+	
 	public void aoSelecionarProdutoCompra() {
         Produto produto = this.produto.getProdutoMatriz();
         //FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Produto Selecionado", "Id:" + produto.getIdProduto());
@@ -143,14 +151,13 @@ public class ProdutoControllerImpl implements ProdutoController {
 		this.produto.setProdutoMatriz(produto);
         RequestContext.getCurrentInstance().closeDialog(produto);
         //this.aoSelecionarProdutoCompra();
-    }	
-	
+	}
 
-	public ProdutoDAO getProdutoDao() {
+	public ProdutoDAOImpl getProdutoDao() {
 		return produtoDao;
 	}
 
-	public void setProdutoDao(ProdutoDAO produtoDao) {
+	public void setProdutoDao(ProdutoDAOImpl produtoDao) {
 		this.produtoDao = produtoDao;
 	}
 

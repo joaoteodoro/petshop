@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Compra</title>
+	<f:facet name="first">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</f:facet>
+</h:head>
+<h:body>
+	<ui:include src="/includes.xhtml" />
+	<div class="container-fluid div-principal-fundo">
+		<h3 class="text-center">
+			<b>Cadastro de Compra</b>
+		</h3>
+		<h:form>
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+		</h:form>
+		<h:form>
+			<h:commandButton rendered="#{compraController.compra.idCompra != 0}"
+				id="excluir"
+				action="#{compraController.removeCompra(compraController.compra)}"
+				value="Excluir Compra" ajax="false" />
+		</h:form>
+		<p:separator />
+
+		<h:form>
+			<div class="row">
+				<div class="col-md-6">
+					<p:outputLabel for="fornecedor" value="Fornecedor:" /><br/>
+					<p:selectOneMenu id="fornecedor"
+						value="#{compraController.compra.fornecedor.idPessoa}" required="true"
+						requiredMessage="Fornecedor é obrigatório!">
+						<f:selectItem itemLabel="Selecione..." itemValue="" />
+						<f:selectItems
+							value="#{compraController.selectItensFornecedores()}" />
+					</p:selectOneMenu>
+				</div>
+			</div>
+			<br />
+
+			<div class="row">
+				<div class="col-md-12">
+					<p:commandButton value="Adicionar produto" icon="ui-icon-extlink" actionListener="#{produtoController.abreTelaSelecaoProduto}" />
+					<p:commandButton update="produtosCompra" action="#{produtoController.aoSelecionarProdutoCompra()}"
+						id="atualizaProdutosCompra" style="display: none;" />
+
+					<p:dataTable id="produtosCompra" var="produtoCompra" value="#{compraController.compra.produtosCompra}">
+						<p:column headerText="Nome">
+							<h:outputText value="#{produtoCompra.produto.nome}" />
+						</p:column>
+
+						<p:column headerText="Descrição">
+							<h:outputText value="#{produtoCompra.produto.descricao}" />
+						</p:column>
+
+						<p:column headerText="Qtd. Unidade">
+							<h:outputText value="#{produtoCompra.produto.quantidadeUnidade}" />
+						</p:column>
+
+						<p:column headerText="Unidade">
+							<h:outputText value="#{produtoCompra.produto.tipoUnidade}" />
+						</p:column>
+
+						<p:column headerText="Qtd. Compra">
+							<p:inputText id="qtdCompra" value="#{produtoCompra.quantidade}" required="true" requiredMessage="Quantidade compra é obrigatório!"
+								styleClass="form-control" />
+						</p:column>
+
+						<p:column headerText="Valor Unit.">
+							<p:inputText id="valorUnitario" value="#{produtoCompra.valorUnitario}" required="true" requiredMessage="Valor unitário é obrigatório!"
+								styleClass="form-control">
+								<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+							</p:inputText>
+						</p:column>
+
+						<p:column headerText="Valor Total">
+							<h:outputText id="valorTotal" value="#{produtoCompra.valorTotal}">
+								<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+
+						<p:column>
+							<p:commandButton update="produtosCompra" action="#{compraController.removeProdutoCompra(animal)}" id="excluir" 
+								icon="fa fa-fw fa-remove" title="Excluir Produto" />
+						</p:column>
+					</p:dataTable>
+				</div>
+			</div>
+			<br/>
+			
+			<div class="row">
+				<div class="col-md-3">
+					<p:outputLabel for="formaPagamento" value="Forma de Pagamento:" /><br/>
+					<p:selectOneMenu id="formaPagamento"
+						value="#{compraController.compra.formaPagamento}" required="true"
+						requiredMessage="Forma de pagamento é obrigatório!">
+						<f:selectItem itemLabel="Selecione..." itemValue="" />
+						<f:selectItems
+							value="#{compraController.selectItensFormaPagamento()}" />
+					</p:selectOneMenu>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-3">
+					<p:outputLabel for="compraParcelada" value="Compra parcelada?" /><br/>
+					<p:selectBooleanCheckbox id="compraParcelada" value="#{compraController.compra.compraParcelada}" styleClass=""/>
+				</div>
+				<div class="col-md-3">
+					<p:outputLabel for="nrParcelas" value="Número de Parcelas" />
+					<p:inputText id="nrParcelas" value="#{compraController.compra.nrParcelas}" styleClass="form-control" />
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-12">
+					<p:dataTable id="parcelas" var="parcela" value="#{compraController.compra.parcelas}" rendered="#{compraController.compra.nrParcelas != null}">
+						<p:column headerText="Parcela">
+							<h:outputText value="#{parcela.numeroParcela}" />
+						</p:column>
+
+						<p:column headerText="Vecimento">
+							<p:calendar id="vencimento" value="#{parcela.vencimento}" pattern="dd-MM-yyyy" mask="true" required="true"
+			    				requiredMessage="Data de Vencimento é obrigatório!"/>
+						</p:column>
+
+						<p:column headerText="Valor">
+							<h:outputText value="#{parcela.valor}" />
+						</p:column>
+					</p:dataTable>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-3">
+					<p:outputLabel for="vencimentoCompra" value="Vencimento:" /><br/>
+					<p:calendar id="vencimentoCompra" value="#{compraController.compra.dtVencimento}" pattern="dd-MM-yyyy" mask="true" required="true"
+			    				requiredMessage="Data de Vencimento é obrigatório!"/>
+				</div>
+			</div>
+
+			<p:commandButton value="Gravar" id="gravar" action="#{clienteController.grava}" ajax="false" />
+		</h:form>
+	</div>
+	<script>
+		$(document).ready(function() {
+			$("input[id*='valorUnitario']").maskMoney({thousands : '.',decimal : ','});
+			$("input[id*='valorTotal']").maskMoney({thousands : '.',decimal : ','});
+		});
+	</script>
+</h:body>
+</html>

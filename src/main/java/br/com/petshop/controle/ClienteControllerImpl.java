@@ -13,11 +13,14 @@ import javax.faces.model.SelectItem;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.petshop.dao.AnimalDAO;
-import br.com.petshop.dao.ClienteDAO;
+import br.com.petshop.dao.AnimalDAOImpl;
 import br.com.petshop.dao.ClienteDAOImpl;
 import br.com.petshop.dao.EnderecoDAO;
+import br.com.petshop.dao.EnderecoDAOImpl;
 import br.com.petshop.dao.EstadoDAO;
+import br.com.petshop.dao.EstadoDAOImpl;
 import br.com.petshop.dao.TelefoneDAO;
+import br.com.petshop.dao.TelefoneDAOImpl;
 import br.com.petshop.modelo.Animal;
 import br.com.petshop.modelo.Cliente;
 import br.com.petshop.modelo.Endereco;
@@ -33,16 +36,16 @@ public class ClienteControllerImpl implements ClienteController {
 	ClienteDAOImpl clienteDao;
 	
 	@Autowired
-	EstadoDAO estadoDao;
+	EstadoDAOImpl estadoDao;
 	
 	@Autowired
-	EnderecoDAO enderecoDao;
+	EnderecoDAOImpl enderecoDao;
 	
 	@Autowired
-	TelefoneDAO telefoneDao;
+	TelefoneDAOImpl telefoneDao;
 	
 	@Autowired
-	AnimalDAO animalDao;
+	AnimalDAOImpl animalDao;
 	
 	private Cliente cliente;
 	
@@ -81,27 +84,27 @@ public class ClienteControllerImpl implements ClienteController {
 	}
 	
 	public String removeCliente(Cliente c){
-		clienteDao.remover((long)c.getIdPessoa());;
+		clienteDao.remover(c.getIdPessoa());;
 		removerEndereco(c.getEndereco());
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro excluído com sucesso!"));
 		return "clientes";
 	}
 	
 	public void removerEndereco(Endereco e){
-		enderecoDao.remove(e);
+		enderecoDao.remover(e.getId());
 	}
 
 	@Override
 	public String grava() {
 		boolean ehNovoRegistro = true;
 		validaEndereco();
-		if(this.cliente.getIdPessoa() != 0){
+		if(this.cliente.getIdPessoa() != null){
 			ehNovoRegistro = false;
 			validaTelefones();
 			validaAnimais();
 		}
 		cliente.setCpf(StringUtils.somenteNumeros(cliente.getCpf()));
-		if(this.cliente.getIdPessoa() != 0){
+		if(this.cliente.getIdPessoa() != null){
 			clienteDao.atualizar(this.cliente);
 		}else{
 			clienteDao.salvar(this.cliente);
@@ -113,14 +116,14 @@ public class ClienteControllerImpl implements ClienteController {
 		
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registro gravado com sucesso!"));
 		
-		this.cliente = clienteDao.encontrar((long)this.cliente.getIdPessoa());
+		this.cliente = clienteDao.encontrar(this.cliente.getIdPessoa());
 		
 		return editaCliente(cliente);
 	}
 	
 	public List<SelectItem> selectItensEstados(){
 		List<SelectItem> itens = new ArrayList<>();
-		for (Estado estado : estadoDao.listaEstados()) {
+		for (Estado estado : estadoDao.getList()) {
 			itens.add(new SelectItem(estado.getId(), estado.getNome()));
 		} 
 		return itens;
@@ -128,20 +131,20 @@ public class ClienteControllerImpl implements ClienteController {
 
 	private void validaEndereco(){
 		cliente.getEndereco().setCep(StringUtils.somenteNumeros(cliente.getEndereco().getCep()));
-		if(this.cliente.getEndereco().getId() != 0){
-			enderecoDao.altera(cliente.getEndereco());
+		if(this.cliente.getEndereco().getId() != null){
+			enderecoDao.atualizar(cliente.getEndereco());
 		}else{
-			enderecoDao.inclui(cliente.getEndereco());
+			enderecoDao.salvar(cliente.getEndereco());
 		}
 	}
 	
 	private void validaAnimais(){
 		for (Animal animal : cliente.getAnimais()) {
 			animal.setDono(cliente);
-			if(animal.getIdAnimal() != 0){
-				animalDao.altera(animal);
+			if(animal.getIdAnimal() != null){
+				animalDao.atualizar(animal);
 			}else{
-				animalDao.inclui(animal);
+				animalDao.salvar(animal);
 			}
 		}
 	}
@@ -150,9 +153,9 @@ public class ClienteControllerImpl implements ClienteController {
 		//excluir registro em branco
 		Telefone segundoTelefone = cliente.getTelefones().get(1);
 		if(segundoTelefone.getNumero() == null || "".equals(segundoTelefone.getNumero())){
-			if(segundoTelefone.getId() != 0){
+			if(segundoTelefone.getId() != null){
 				segundoTelefone.setPessoa(null);
-				telefoneDao.remove(segundoTelefone);
+				telefoneDao.remover(segundoTelefone.getId());
 			}
 			this.cliente.getTelefones().set(1, null);
 		}
@@ -162,10 +165,10 @@ public class ClienteControllerImpl implements ClienteController {
 			if(telefone!= null ){
 				telefone.setNumero(StringUtils.somenteNumeros(telefone.getNumero()));
 				telefone.setPessoa(cliente);
-				if(telefone.getId() != 0){
-					telefoneDao.altera(telefone);
+				if(telefone.getId() != null){
+					telefoneDao.atualizar(telefone);
 				}else{
-					telefoneDao.inclui(telefone);
+					telefoneDao.salvar(telefone);
 				}
 			}
 		}
@@ -200,35 +203,37 @@ public class ClienteControllerImpl implements ClienteController {
 		this.clientesFiltrados = clientesFiltrados;
 	}
 
-	public EstadoDAO getEstadoDao() {
+	public EstadoDAOImpl getEstadoDao() {
 		return estadoDao;
 	}
 
-	public void setEstadoDao(EstadoDAO estadoDao) {
+	public void setEstadoDao(EstadoDAOImpl estadoDao) {
 		this.estadoDao = estadoDao;
 	}
 
-	public EnderecoDAO getEnderecoDao() {
+	public EnderecoDAOImpl getEnderecoDao() {
 		return enderecoDao;
 	}
 
-	public void setEnderecoDao(EnderecoDAO enderecoDao) {
+	public void setEnderecoDao(EnderecoDAOImpl enderecoDao) {
 		this.enderecoDao = enderecoDao;
 	}
 
-	public TelefoneDAO getTelefoneDao() {
+	public TelefoneDAOImpl getTelefoneDao() {
 		return telefoneDao;
 	}
 
-	public void setTelefoneDao(TelefoneDAO telefoneDao) {
+	public void setTelefoneDao(TelefoneDAOImpl telefoneDao) {
 		this.telefoneDao = telefoneDao;
 	}
 
-	public AnimalDAO getAnimalDao() {
+	public AnimalDAOImpl getAnimalDao() {
 		return animalDao;
 	}
 
-	public void setAnimalDao(AnimalDAO animalDao) {
+	public void setAnimalDao(AnimalDAOImpl animalDao) {
 		this.animalDao = animalDao;
 	}
+
+	
 }

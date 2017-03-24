@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.petshop.dao.EstadoDAO;
+import br.com.petshop.dao.EstadoDAOImpl;
 import br.com.petshop.modelo.Estado;
 
 //@Service
@@ -19,7 +20,7 @@ import br.com.petshop.modelo.Estado;
 public class EstadoControllerImpl implements EstadoController {
 
 	@Autowired
-	EstadoDAO estadoDao;
+	EstadoDAOImpl estadoDao;
 	
 	private Estado estado;
 	
@@ -30,7 +31,7 @@ public class EstadoControllerImpl implements EstadoController {
 	}
 	
 	public List<Estado> listaEstados() {
-		return this.estadoDao.listaEstados();
+		return this.estadoDao.getList();
 	}
 	
 	public String editaEstado(Estado estado){
@@ -41,18 +42,18 @@ public class EstadoControllerImpl implements EstadoController {
 	@Override
 	public String grava() {
 		if(this.estado.getId() != 0){
-			estadoDao.altera(this.estado);
+			estadoDao.atualizar(this.estado);
 		}else{
-			estadoDao.inclui(this.estado);
+			estadoDao.salvar(this.estado);
 		}
 		return "estados";
 	}
 
-	public EstadoDAO getEstadoDao() {
+	public EstadoDAOImpl getEstadoDao() {
 		return estadoDao;
 	}
 
-	public void setEstadoDao(EstadoDAO estadoDao) {
+	public void setEstadoDao(EstadoDAOImpl estadoDao) {
 		this.estadoDao = estadoDao;
 	}
 

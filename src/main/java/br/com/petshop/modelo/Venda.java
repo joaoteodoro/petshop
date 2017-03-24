@@ -22,7 +22,7 @@ public class Venda {
 	@Id
 	@Column(name = "idVenda")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idVenda;
+	private Long idVenda;
 
 	private Date dtVenda;
 
@@ -40,11 +40,11 @@ public class Venda {
 
 	private FormaPagamento formaPagamento;
 
-	public int getIdVenda() {
+	public Long getIdVenda() {
 		return idVenda;
 	}
 
-	public void setIdVenda(int idVenda) {
+	public void setIdVenda(Long idVenda) {
 		this.idVenda = idVenda;
 	}
 

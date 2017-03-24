@@ -18,7 +18,7 @@ public class Endereco {
 	@Id
     @Column(name="id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 	private String logradouro;
 	private String bairro;
@@ -34,10 +34,10 @@ public class Endereco {
 		this.estado = new Estado();
 	}
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getLogradouro() {

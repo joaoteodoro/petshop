@@ -1,10 +1,5 @@
 package br.com.petshop.dao;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +9,13 @@ import br.com.petshop.modelo.Animal;
 @Repository
 @Service
 @Transactional
-public class AnimalDAOImpl implements AnimalDAO{
+public class AnimalDAOImpl extends GenericDAO<Animal, Long>{
 	
-	@PersistenceContext
+	public AnimalDAOImpl(){
+		super(Animal.class);
+	}
+	
+	/*@PersistenceContext
 	EntityManager entityManagerFactory;
 	
 	//private static final Logger logger = LoggerFactory.getLogger(FornecedorDAOImpl.class);
@@ -46,5 +45,5 @@ public class AnimalDAOImpl implements AnimalDAO{
  
 	public void remove(Animal a){
 		entityManagerFactory.remove(entityManagerFactory.getReference(Animal.class, a.getIdAnimal()));
-	}
+	}*/
 }

@@ -30,6 +30,8 @@ public class ProdutoCompra{
 	private int quantidade;
 	
 	private BigDecimal valorUnitario;
+	
+	private BigDecimal valorTotal;
 
 	@ManyToOne
 	private Produto produto;
@@ -75,5 +77,13 @@ public class ProdutoCompra{
 
 	public void setValorUnitario(BigDecimal valorUnitario) {
 		this.valorUnitario = valorUnitario;
+	}
+
+	public BigDecimal getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(BigDecimal valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 }

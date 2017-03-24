@@ -1,23 +1,22 @@
 package br.com.petshop.dao;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.petshop.modelo.Endereco;
-import br.com.petshop.modelo.Fornecedor;
+import br.com.petshop.modelo.Produto;
 
 @Repository
 @Service
 @Transactional
-public class EnderecoDAOImpl implements EnderecoDAO{
+public class EnderecoDAOImpl extends GenericDAO<Endereco, Long>{
+
+	public EnderecoDAOImpl(){
+		super(Endereco.class);
+	}
 	
-	@PersistenceContext
+	/*@PersistenceContext
 	EntityManager entityManagerFactory;
 	
 	//private static final Logger logger = LoggerFactory.getLogger(FornecedorDAOImpl.class);
@@ -43,6 +42,6 @@ public class EnderecoDAOImpl implements EnderecoDAO{
 	
 	public void remove(Endereco e){
 		entityManagerFactory.remove(entityManagerFactory.getReference(Endereco.class, e.getId()));
-	}
+	}*/
  
 }

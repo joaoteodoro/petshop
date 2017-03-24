@@ -25,6 +25,13 @@
 		<property name="password" value="" />
 	</bean>
 	
+	<bean id="compraDao" 
+		class="br.com.petshop.dao.CompraDAO"/>
+	<bean id="compraController"
+		class="br.com.petshop.controle.CompraController">
+		<property name="compraDao" ref="compraDao"></property>
+	</bean>
+	
 	<bean id="produtoDao" 
 		class="br.com.petshop.dao.ProdutoDAOImpl"/>
 	<bean id="produtoController"
@@ -71,6 +78,10 @@
 		class="br.com.petshop.controle.UsuarioControllerImpl">
 		<property name="usuarioDao" ref="usuarioDao"></property>
 	</bean>
+	
+<!-- 	<bean id="genericDAO" -->
+<!-- 		class="br.com.petshop.dao.GenericDAO"> -->
+<!-- 	</bean> -->
 	
 	
 	

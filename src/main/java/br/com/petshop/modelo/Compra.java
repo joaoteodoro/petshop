@@ -8,6 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +25,7 @@ public class Compra {
 	@Id
 	@Column(name = "idCompra")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idCompra;
+	private Long idCompra;
 	
 	@OneToMany(mappedBy = "compra", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<ProdutoCompra> produtosCompra;
@@ -35,26 +37,23 @@ public class Compra {
 
 	private Date dtCompra;
 	
-	private int nrParcelas;
+	private boolean compraParcelada;
+	
+	private Long nrParcelas;
 	
 	@OneToMany(mappedBy = "compra", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Parcela> parcelas;
 	
 	private Date dtVencimento;
+	
+	@Enumerated(EnumType.STRING)
+	private FormaPagamento formaPagamento;
 
-	public int getNrParcelas() {
-		return nrParcelas;
-	}
-
-	public void setNrParcelas(int nrParcelas) {
-		this.nrParcelas = nrParcelas;
-	}
-
-	public int getIdCompra() {
+	public Long getIdCompra() {
 		return idCompra;
 	}
 
-	public void setIdCompra(int idCompra) {
+	public void setIdCompra(Long idCompra) {
 		this.idCompra = idCompra;
 	}
 
@@ -104,6 +103,30 @@ public class Compra {
 
 	public void setDtVencimento(Date dtVencimento) {
 		this.dtVencimento = dtVencimento;
+	}
+
+	public boolean isCompraParcelada() {
+		return compraParcelada;
+	}
+
+	public void setCompraParcelada(boolean compraParcelada) {
+		this.compraParcelada = compraParcelada;
+	}
+
+	public FormaPagamento getFormaPagamento() {
+		return formaPagamento;
+	}
+
+	public void setFormaPagamento(FormaPagamento formaPagamento) {
+		this.formaPagamento = formaPagamento;
+	}
+
+	public Long getNrParcelas() {
+		return nrParcelas;
+	}
+
+	public void setNrParcelas(Long nrParcelas) {
+		this.nrParcelas = nrParcelas;
 	}
 
 }

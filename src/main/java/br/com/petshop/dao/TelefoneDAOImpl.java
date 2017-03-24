@@ -1,10 +1,5 @@
 package br.com.petshop.dao;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +9,13 @@ import br.com.petshop.modelo.Telefone;
 @Repository
 @Service
 @Transactional
-public class TelefoneDAOImpl implements TelefoneDAO{
+public class TelefoneDAOImpl extends GenericDAO<Telefone, Long>{
 	
-	@PersistenceContext
+	public TelefoneDAOImpl(){
+		super(Telefone.class);
+	}
+	
+	/*@PersistenceContext
 	EntityManager entityManagerFactory;
 	
 	//private static final Logger logger = LoggerFactory.getLogger(FornecedorDAOImpl.class);
@@ -42,5 +41,5 @@ public class TelefoneDAOImpl implements TelefoneDAO{
 	public Telefone inclui(Telefone t) {
 		entityManagerFactory.persist(t);
 		return t;
-	}
+	}*/
 }
