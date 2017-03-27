@@ -130,7 +130,7 @@ public class ClienteControllerImpl implements ClienteController {
 	}
 
 	private void validaEndereco(){
-		cliente.getEndereco().setCep(StringUtils.somenteNumeros(cliente.getEndereco().getCep()));
+		cliente.getEndereco().setCep(StringUtils.somenteNumeros(cliente.getEndereco().getCep()));	
 		if(this.cliente.getEndereco().getId() != null){
 			enderecoDao.atualizar(cliente.getEndereco());
 		}else{

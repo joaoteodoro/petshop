@@ -1,28 +1,24 @@
 package br.com.petshop.controle;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.petshop.dao.CompraDAO;
-import br.com.petshop.dao.EnderecoDAOImpl;
-import br.com.petshop.dao.EstadoDAOImpl;
 import br.com.petshop.dao.FornecedorDAOImpl;
-import br.com.petshop.dao.TelefoneDAOImpl;
+import br.com.petshop.dao.ProdutoDAOImpl;
 import br.com.petshop.modelo.Compra;
-import br.com.petshop.modelo.Estado;
 import br.com.petshop.modelo.FormaPagamento;
 import br.com.petshop.modelo.Fornecedor;
-import br.com.petshop.modelo.Telefone;
-import br.com.petshop.modelo.TipoUnidade;
-import br.com.petshop.utils.StringUtils;
+import br.com.petshop.modelo.Produto;
+import br.com.petshop.modelo.ProdutoCompra;
 
 @ManagedBean(name = "compraController")
 public class CompraController{
@@ -31,11 +27,16 @@ public class CompraController{
 	CompraDAO compraDao;
 	
 	@Autowired
+	ProdutoDAOImpl produtoDao;
+	
+	@Autowired
 	FornecedorDAOImpl fornecedorDao;
 	
 	private Compra compra;
 	
 	private List<Compra> compraFiltrados;
+	
+	private Long idprodutoAdicionar;
 	
 	public CompraController(){
 		this.compra = new Compra();
@@ -90,6 +91,13 @@ public class CompraController{
 		} 
 		return itens;
 	}
+	
+	public void adicionarNovoProduto(){
+		Produto produto = produtoDao.encontrar(idprodutoAdicionar);
+		ProdutoCompra produtoCompra = new ProdutoCompra();
+		produtoCompra.setProduto(produto);
+		this.compra.getProdutosCompra().add(produtoCompra);
+	}
 
 	public CompraDAO getCompraDao() {
 		return compraDao;
@@ -114,4 +122,30 @@ public class CompraController{
 	public void setCompraFiltrados(List<Compra> compraFiltrados) {
 		this.compraFiltrados = compraFiltrados;
 	}
+
+	public ProdutoDAOImpl getProdutoDao() {
+		return produtoDao;
+	}
+
+	public void setProdutoDao(ProdutoDAOImpl produtoDao) {
+		this.produtoDao = produtoDao;
+	}
+
+	public FornecedorDAOImpl getFornecedorDao() {
+		return fornecedorDao;
+	}
+
+	public void setFornecedorDao(FornecedorDAOImpl fornecedorDao) {
+		this.fornecedorDao = fornecedorDao;
+	}
+
+	public Long getIdprodutoAdicionar() {
+		return idprodutoAdicionar;
+	}
+
+	public void setIdprodutoAdicionar(Long idprodutoAdicionar) {
+		this.idprodutoAdicionar = idprodutoAdicionar;
+	}
+
+	
 }

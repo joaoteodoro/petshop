@@ -15,7 +15,10 @@
     </f:facet>
 </h:head>
 <h:body>
-	<ui:include src="/includes.xhtml" />
+	<c:if test="#{produtoController.exibeMenu}">
+		<ui:include src="/includes.xhtml" />
+	</c:if>
+	
 	<div class="container-fluid div-principal-fundo">
 		<h:form>
 		    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
@@ -32,7 +35,12 @@
 			                <p:inputText id="globalFilter" onkeyup="PF('produtoTable').filter()" style="width:150px" placeholder="Pesquisa..."/>
 			            </p:outputPanel>
 			        </f:facet>
-	
+			    
+			    <c:if test="#{produtoController.exibeMenu == false}">
+			    	<p:ajax event="rowSelect" listener="#{produtoController.onRowSelect}"  
+			    		/>
+				</c:if>
+				
 				<p:column headerText="Nome" filterBy="#{produto.nome}" filterStyle="display:none; visibility:hidden;">
 					<h:outputText value="#{produto.nome}" />
 				</p:column>
@@ -63,7 +71,9 @@
 				</p:column>
 		    </p:dataTable>
 			<br/>
-			<p:commandButton id="novo" value="Adicionar Produto " action="#{produtoController.novo()}" ajax="false" />
+			<c:if test="#{produtoController.exibeMenu}">
+				<p:commandButton id="novo" value="Adicionar Produto " action="#{produtoController.novo()}" ajax="false" />
+			</c:if>
 		</h:form>
 	</div>	
 </h:body>

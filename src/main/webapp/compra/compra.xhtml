@@ -49,34 +49,36 @@
 
 			<div class="row">
 				<div class="col-md-12">
+					<p:inputText id="idProdutoAdicionar" value="#{compraController.idprodutoAdicionar}" style="display: none;"/>
+					
 					<p:commandButton value="Adicionar produto" icon="ui-icon-extlink" actionListener="#{produtoController.abreTelaSelecaoProduto}" />
-					<p:commandButton update="produtosCompra" action="#{produtoController.aoSelecionarProdutoCompra()}"
-						id="atualizaProdutosCompra" style="display: none;" />
+					<p:commandButton update="nomeProduto,descricaoProduto,qtdUnidadeProduto,unidadeProduto,qtdCompraProduto,valorUnitarioProduto" 
+						action="#{compraController.adicionarNovoProduto()}"	id="adicionarNovoProduto" style="display: none;" />
 
 					<p:dataTable id="produtosCompra" var="produtoCompra" value="#{compraController.compra.produtosCompra}">
 						<p:column headerText="Nome">
-							<h:outputText value="#{produtoCompra.produto.nome}" />
+							<h:outputText id="nomeProduto" value="#{produtoCompra.produto.nome}" />
 						</p:column>
 
 						<p:column headerText="Descrição">
-							<h:outputText value="#{produtoCompra.produto.descricao}" />
+							<h:outputText id="descricaoProduto" value="#{produtoCompra.produto.descricao}" />
 						</p:column>
 
 						<p:column headerText="Qtd. Unidade">
-							<h:outputText value="#{produtoCompra.produto.quantidadeUnidade}" />
+							<h:outputText id="qtdUnidadeProduto" value="#{produtoCompra.produto.quantidadeUnidade}" />
 						</p:column>
 
 						<p:column headerText="Unidade">
-							<h:outputText value="#{produtoCompra.produto.tipoUnidade}" />
+							<h:outputText id="unidadeProduto" value="#{produtoCompra.produto.tipoUnidade}" />
 						</p:column>
 
 						<p:column headerText="Qtd. Compra">
-							<p:inputText id="qtdCompra" value="#{produtoCompra.quantidade}" required="true" requiredMessage="Quantidade compra é obrigatório!"
+							<p:inputText id="qtdCompraProduto" value="#{produtoCompra.quantidade}" required="true" requiredMessage="Quantidade compra é obrigatório!"
 								styleClass="form-control" />
 						</p:column>
 
 						<p:column headerText="Valor Unit.">
-							<p:inputText id="valorUnitario" value="#{produtoCompra.valorUnitario}" required="true" requiredMessage="Valor unitário é obrigatório!"
+							<p:inputText id="valorUnitarioProduto" value="#{produtoCompra.valorUnitario}" required="true" requiredMessage="Valor unitário é obrigatório!"
 								styleClass="form-control">
 								<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 							</p:inputText>
@@ -156,6 +158,12 @@
 			$("input[id*='valorUnitario']").maskMoney({thousands : '.',decimal : ','});
 			$("input[id*='valorTotal']").maskMoney({thousands : '.',decimal : ','});
 		});
+		
+		function recebeProdutoSelecionado(idProduto){
+			debugger;
+			$("input[id*='idProdutoAdicionar']").val(idProduto);
+			$("button[id*='adicionarNovoProduto']").click();
+		}
 	</script>
 </h:body>
 </html>

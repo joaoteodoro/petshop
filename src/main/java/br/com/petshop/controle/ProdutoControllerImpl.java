@@ -6,22 +6,22 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.com.petshop.dao.ProdutoDAO;
 import br.com.petshop.dao.ProdutoDAOImpl;
 import br.com.petshop.modelo.Produto;
 import br.com.petshop.modelo.TipoProduto;
 import br.com.petshop.modelo.TipoUnidade;
 
 @ManagedBean(name = "produtoController")
-@ViewScoped
+@ApplicationScoped
 public class ProdutoControllerImpl implements ProdutoController {
 
 	@Autowired
@@ -30,6 +30,8 @@ public class ProdutoControllerImpl implements ProdutoController {
 	private Produto produto;
 	
 	private boolean exibeProduto;
+	
+	private boolean exibeMenu = true;
 	
 	private List<Produto> produtosFiltrados;
 	
@@ -43,11 +45,13 @@ public class ProdutoControllerImpl implements ProdutoController {
 	
 	
 	public String novo() {
+		this.exibeMenu = true;
 		this.produto = new Produto();
 		return "produto";
 	}
 	
 	public String editaProduto(Produto produto){
+		this.exibeMenu = true;
 		this.produto = produto;
 		
 		return "produto";
@@ -117,7 +121,7 @@ public class ProdutoControllerImpl implements ProdutoController {
         options.put("resizable", false);
         options.put("draggable", false);
         options.put("modal", true);
-        RequestContext.getCurrentInstance().openDialog("selecionarProdutoCompra", options, null);
+        RequestContext.getCurrentInstance().openDialog("/produto/selecionarProdutoCompra", options, null);
     }
 	
 	public void abreTelaSelecaoProduto(){
@@ -125,8 +129,20 @@ public class ProdutoControllerImpl implements ProdutoController {
         options.put("resizable", false);
         options.put("draggable", false);
         options.put("modal", true);
-        RequestContext.getCurrentInstance().openDialog("selecionarProdutoCompra", options, null);
+        options.put("includeViewParams", true);
+        
+        this.exibeMenu = false;
+        
+        RequestContext.getCurrentInstance().openDialog("/produto/produtos", options, null);
 	}
+	
+	public void onRowSelect(SelectEvent event) {
+		this.exibeMenu = true;
+		Long idProdutoSelecionado = ((Produto) event.getObject()).getIdProduto();
+		RequestContext requestContext = RequestContext.getCurrentInstance();  
+		requestContext.execute("window.parent.recebeProdutoSelecionado('"+ idProdutoSelecionado +"')");
+		RequestContext.getCurrentInstance().closeDialog(null);
+    }
 	
 	public void aoSelecionarProdutoCompra() {
         Produto produto = this.produto.getProdutoMatriz();
@@ -183,6 +199,14 @@ public class ProdutoControllerImpl implements ProdutoController {
 
 	public void setExibeProduto(boolean exibeProduto) {
 		this.exibeProduto = exibeProduto;
+	}
+
+	public boolean isExibeMenu() {
+		return exibeMenu;
+	}
+
+	public void setExibeMenu(boolean exibeMenu) {
+		this.exibeMenu = exibeMenu;
 	}
 
 }
