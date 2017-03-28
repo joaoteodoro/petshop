@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.CloseEvent;
 import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -142,6 +143,10 @@ public class ProdutoControllerImpl implements ProdutoController {
 		RequestContext requestContext = RequestContext.getCurrentInstance();  
 		requestContext.execute("window.parent.recebeProdutoSelecionado('"+ idProdutoSelecionado +"')");
 		RequestContext.getCurrentInstance().closeDialog(null);
+    }
+	
+	public void handleClose(CloseEvent event) {
+		this.exibeMenu = true;
     }
 	
 	public void aoSelecionarProdutoCompra() {

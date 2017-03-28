@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +23,7 @@ import br.com.petshop.modelo.Produto;
 import br.com.petshop.modelo.ProdutoCompra;
 
 @ManagedBean(name = "compraController")
+@ViewScoped
 public class CompraController{
 
 	@Autowired
@@ -88,7 +91,7 @@ public class CompraController{
 		List<SelectItem> itens = new ArrayList<>();
 		for (FormaPagamento formaPagamento : FormaPagamento.values()) {
 			itens.add(new SelectItem(formaPagamento, formaPagamento.getDescricao()));
-		} 
+		}
 		return itens;
 	}
 	
@@ -96,6 +99,9 @@ public class CompraController{
 		Produto produto = produtoDao.encontrar(idprodutoAdicionar);
 		ProdutoCompra produtoCompra = new ProdutoCompra();
 		produtoCompra.setProduto(produto);
+		if(this.compra.getProdutosCompra() == null){
+			this.compra.setProdutosCompra(new ArrayList<ProdutoCompra>());
+		}
 		this.compra.getProdutosCompra().add(produtoCompra);
 	}
 

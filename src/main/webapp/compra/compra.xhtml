@@ -32,7 +32,7 @@
 		</h:form>
 		<p:separator />
 
-		<h:form>
+		<h:form id="formularioCompra">
 			<div class="row">
 				<div class="col-md-6">
 					<p:outputLabel for="fornecedor" value="Fornecedor:" /><br/>
@@ -50,12 +50,10 @@
 			<div class="row">
 				<div class="col-md-12">
 					<p:inputText id="idProdutoAdicionar" value="#{compraController.idprodutoAdicionar}" style="display: none;"/>
-					
-					<p:commandButton value="Adicionar produto" icon="ui-icon-extlink" actionListener="#{produtoController.abreTelaSelecaoProduto}" />
-					<p:commandButton update="nomeProduto,descricaoProduto,qtdUnidadeProduto,unidadeProduto,qtdCompraProduto,valorUnitarioProduto" 
-						action="#{compraController.adicionarNovoProduto()}"	id="adicionarNovoProduto" style="display: none;" />
-
-					<p:dataTable id="produtosCompra" var="produtoCompra" value="#{compraController.compra.produtosCompra}">
+					<p:commandButton value="Adicionar produto" icon="ui-icon-extlink" actionListener="#{produtoController.abreTelaSelecaoProduto}"
+						immediate="true" />
+					<p:commandButton update="tabelaProdutosCompra" action="#{compraController.adicionarNovoProduto()}" id="adicionarNovoProduto" style="display: none;"/>
+					<p:dataTable id="tabelaProdutosCompra" var="produtoCompra" value="#{compraController.compra.produtosCompra}">
 						<p:column headerText="Nome">
 							<h:outputText id="nomeProduto" value="#{produtoCompra.produto.nome}" />
 						</p:column>
@@ -91,7 +89,7 @@
 						</p:column>
 
 						<p:column>
-							<p:commandButton update="produtosCompra" action="#{compraController.removeProdutoCompra(animal)}" id="excluir" 
+							<p:commandButton update="tabelaProdutosCompra" action="#{compraController.removeProdutoCompra(produto)}" id="excluir" 
 								icon="fa fa-fw fa-remove" title="Excluir Produto" />
 						</p:column>
 					</p:dataTable>

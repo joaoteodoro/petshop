@@ -37,8 +37,8 @@
 			        </f:facet>
 			    
 			    <c:if test="#{produtoController.exibeMenu == false}">
-			    	<p:ajax event="rowSelect" listener="#{produtoController.onRowSelect}"  
-			    		/>
+			    	<p:ajax event="rowSelect" listener="#{produtoController.onRowSelect}"  />
+<!-- 			    	<p:ajax event="close" listener="#{produtoController.handleClose}" /> -->
 				</c:if>
 				
 				<p:column headerText="Nome" filterBy="#{produto.nome}" filterStyle="display:none; visibility:hidden;">
